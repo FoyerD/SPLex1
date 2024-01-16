@@ -2,6 +2,8 @@
 
 #include <string>
 #include <vector>
+#include <sstream>
+using namespace std;
 using std::string;
 using std::vector;
 
