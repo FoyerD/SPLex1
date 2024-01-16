@@ -1,7 +1,7 @@
 #include "Order.h"
 
 
-Order::Order(int id, int customerId, int distance): id(id), customerId(customerId), distance(distance){}
+Order::Order(int id, int customerId, int distance): id(id), customerId(customerId), distance(distance), collectorId(NO_VOLUNTEER), driverId(NO_VOLUNTEER), status(OrderStatus::PENDING){}
 
 int Order::getId() const
 {
@@ -39,8 +39,20 @@ OrderStatus Order::getStatus() const{
 
 const string Order::toString() const{
     ostringstream s;
-    s << "OrderId: " << id + "/nOrderStatus: " << int(status) << 
-    "/nCustomerId: " << customerId << "/nCollector: " << collectorId 
-    << "/nDriver: " << driverId;
+    string coltId = (collectorId != NO_VOLUNTEER) ? to_string(collectorId) : NONE;
+    string drvId = (driverId != NO_VOLUNTEER) ? to_string(driverId) : NONE;
+    s << "OrderId: " << id + "/nOrderStatus: " << OrderStatusNames[int(status)] << 
+    "/nCustomerId: " << customerId << "/nCollector: " << coltId 
+    << "/nDriver: " << drvId;
+    return s.str();
+}
+
+const int Order::getDistance() const{
+    return distance;
+}
+
+const string Order::printStatus() const{
+    ostringstream s;
+    s << "OrderId: " << id + "/nOrderStatus: " << OrderStatusNames[int(status)];
     return s.str();
 }
