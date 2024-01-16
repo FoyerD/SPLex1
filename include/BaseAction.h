@@ -9,6 +9,7 @@ enum class ActionStatus{
     COMPLETED, ERROR
 };
 
+
 enum class CustomerType{
     Soldier, Civilian
 };
