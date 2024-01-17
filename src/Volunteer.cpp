@@ -16,9 +16,11 @@ int Volunteer::getActiveOrderId() const{return activeOrderId;}
 int Volunteer::getCompletedOrderId() const{return completedOrderId;}
 
 /**
- * @returns - true if has an active order
+ * @returns - true if has an active order, or completed order waiting
 */
-bool Volunteer::isBusy() const{return !(activeOrderId == NO_ORDER);}
+bool Volunteer::isBusy() const{
+    return activeOrderId != NO_ORDER;
+}
 
 
 
@@ -52,26 +54,48 @@ bool CollectorVolunteer::hasOrdersLeft() const {return true;}
 /**
  * checks if volunteer could handle the order once free
  * @param order - ref to order we check if volunteer can handle
- * @returns - true if the status of order is PENDING
+ * @returns - true if the status of order is PENDING and is not busy
 */
 bool CollectorVolunteer::canTakeOrder(const Order& order) const {
-    return order.getStatus() == OrderStatus::PENDING;
+    return order.getStatus() == OrderStatus::PENDING && !isBusy();
 }
 
 /**
- * a step in the 
+ * decrease timeLeft by 1,return true if timeLeft = 0,false otherwise
+*/
+bool CollectorVolunteer::decreaseCoolDown(){
+    timeLeft = --timeLeft < 0 ? 0 : timeLeft;
+    return timeLeft == 0;
+}
+
+/**
+ * accepts an order, updates timeLeft and activeOrderId
+ * if the volunteer cant accept it, nothing will 
+ * @param order - ref to a order the volunteer is going to handle
+*/
+void CollectorVolunteer::acceptOrder(const Order& order){
+    if(!canTakeOrder(order)) return;
+    activeOrderId = order.getId();
+    timeLeft = coolDown;
+}
+
+/**
+ * a step in the simulation:
+ * decreaes @param timeLeft and only allows current order
+ * to becompleted if @param completedOrderId == NO_ORDER
 */
 void CollectorVolunteer::step(){
-    if(decreaseCoolDown()){
+    if(decreaseCoolDown() && completedOrderId == NO_ORDER){
          completedOrderId = activeOrderId;
          activeOrderId = NO_ORDER;
     }
 }
 
-/**
- * decrease timeLeft by 1,return true if timeLeft=0,false otherwise
-*/
-bool CollectorVolunteer::decreaseCoolDown(){
-    timeLeft = --timeLeft < 0 ? 0 : timeLeft;
-    return timeLeft == 0;
+string CollectorVolunteer::toString() const{
+    string strTimeLeft =  timeLeft == 0 ? "None" : std::to_string(timeLeft);
+    return "VolunteerID:" + std::to_string(getId()) + "\n"
+           +"isBusy:" + std::to_string(isBusy()) + "\n"
+           +"OrderID" + std::to_string(activeOrderId) + "\n"
+           +"timeLeft:" + strTimeLeft + "\n"
+           +"ordersLeft:No Limit";
 }
