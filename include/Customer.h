@@ -1,9 +1,10 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <sstream>
 using std::string;
 using std::vector;
-
+using namespace std;
 
 class Order;
 
@@ -17,9 +18,8 @@ class Customer {
         int getMaxOrders() const; //Returns maxOrders
         int getNumOrders() const; //Returns num of orders the customer has made so far
         bool canMakeOrder() const; //Returns true if the customer didn't reach max orders
-        vector<int> &getOrders() const;
+        const vector<int> &getOrders() const;
         int addOrder(int orderId); //return OrderId if order was added successfully, -1 otherwise
-
         virtual Customer *clone() const = 0; // Return a copy of the customer
 
         
