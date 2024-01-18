@@ -1,6 +1,5 @@
 #include "Volunteer.h"
 
-//CollectorVolunteer class
 /**
  * @param id - id of the new volunteer, given from counter
  * @param name - name of the volunteer
@@ -14,7 +13,7 @@ CollectorVolunteer::CollectorVolunteer(int id, string name, int coolDown):
  * @returns - a new instance of volunteer with same parameters(not busy)
 */
 CollectorVolunteer* CollectorVolunteer::clone() const {
-    return new CollectorVolunteer(getId(), getName(), coolDown);
+    return new CollectorVolunteer(*this);
 }
 
 int CollectorVolunteer::getCoolDown() const {return coolDown;}
@@ -44,6 +43,7 @@ bool CollectorVolunteer::decreaseCoolDown(){
 }
 
 /**
+ * !assumes instance can take order
  * accepts an order, updates timeLeft and activeOrderId
  * decreases ordersLeft by 1 
  * @param order - ref to a order the volunteer is going to handle

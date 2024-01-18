@@ -1,6 +1,5 @@
 #include "Volunteer.h"
 
-//LimitedCollectorVolunteer
 /**
  * @param id - id of the new volunteer, given from counter
  * @param name - name of the volunteer
@@ -16,7 +15,7 @@ LimitedCollectorVolunteer::LimitedCollectorVolunteer(int id, string name, int co
  * @returns - a new instance of volunteer with same parameters(not busy)
 */
 LimitedCollectorVolunteer* LimitedCollectorVolunteer::clone() const{
-    return new LimitedCollectorVolunteer(getId(), getName(), getCoolDown(), maxOrders);
+    return new LimitedCollectorVolunteer(*this);
 }
 
 bool LimitedCollectorVolunteer::hasOrdersLeft() const{
@@ -31,6 +30,7 @@ bool LimitedCollectorVolunteer::canTakeOrder(const Order& order) const{
 }
 
 /**
+ *  * !assumes instance can take order
  * accepts an order, updates timeLeft and activeOrderId
  * decreases ordersLeft by 1 
  * @param order - ref to a order the volunteer is going to handle
