@@ -30,14 +30,14 @@ bool LimitedCollectorVolunteer::canTakeOrder(const Order& order) const{
 }
 
 /**
- *  * !assumes instance can take order
- * accepts an order, updates timeLeft and activeOrderId
+ * !assumes instance can take order
+ * accepts an order, updates timeLeft to coolDown and activeOrderId to order.getId()
  * decreases ordersLeft by 1 
  * @param order - ref to a order the volunteer is going to handle
 */
 void LimitedCollectorVolunteer::acceptOrder(const Order& order){
     CollectorVolunteer::acceptOrder(order);
-    ordersLeft--;  
+    ordersLeft--;
 }
 
 int LimitedCollectorVolunteer::getMaxOrders() const{

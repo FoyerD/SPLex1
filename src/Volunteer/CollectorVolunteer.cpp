@@ -44,8 +44,7 @@ bool CollectorVolunteer::decreaseCoolDown(){
 
 /**
  * !assumes instance can take order
- * accepts an order, updates timeLeft and activeOrderId
- * decreases ordersLeft by 1 
+ * accepts an order, updates timeLeft to coolDown and activeOrderId to order.getId()
  * @param order - ref to a order the volunteer is going to handle
 */
 void CollectorVolunteer::acceptOrder(const Order& order){
@@ -60,8 +59,8 @@ void CollectorVolunteer::acceptOrder(const Order& order){
 */
 void CollectorVolunteer::step(){
     if(decreaseCoolDown() && completedOrderId == NO_ORDER){
-         completedOrderId = activeOrderId;
-         activeOrderId = NO_ORDER;
+        completedOrderId = activeOrderId;
+        activeOrderId = NO_ORDER;
     }
 }
 

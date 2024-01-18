@@ -1,6 +1,5 @@
 #include "Volunteer.h"
 
-//Volunteer class
 /**
  * @param id - id of the new volunteer, given from counter
  * @param name - name of the volunteer
