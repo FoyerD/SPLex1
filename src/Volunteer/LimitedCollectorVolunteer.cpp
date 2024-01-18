@@ -26,7 +26,9 @@ bool LimitedCollectorVolunteer::hasOrdersLeft() const{
  * returns true if volunteer has orders left, is not busy and orderStatus is PENDING
 */
 bool LimitedCollectorVolunteer::canTakeOrder(const Order& order) const{
-    return hasOrdersLeft() && order.getStatus() == OrderStatus::PENDING && !isBusy();
+    return hasOrdersLeft() &&
+            order.getStatus() == OrderStatus::PENDING &&
+            !isBusy();
 }
 
 /**
