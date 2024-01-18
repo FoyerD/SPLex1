@@ -69,7 +69,7 @@ SoldierCustomer::SoldierCustomer(int id, string name, int locationDistance, int 
  * @returns - a SoldierCustomer object that is a clone to the current SoldierCustomer
 */
 SoldierCustomer* SoldierCustomer::clone() const {
-   return new SoldierCustomer(getId(), getName(), getCustomerDistance(), getMaxOrders());
+   return new SoldierCustomer(*this);
 }
 
 //CivilianCustomer class
@@ -85,5 +85,5 @@ CivilianCustomer::CivilianCustomer(int id, string name, int locationDistance, in
  * @returns - a CivilianCustomer object that is a clone to the current CivilianCustomer
 */
 CivilianCustomer* CivilianCustomer::clone() const {
-    return new CivilianCustomer(getId(), getName(), getCustomerDistance(), getMaxOrders());
+    return new CivilianCustomer(*this);
 }
