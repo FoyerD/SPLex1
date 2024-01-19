@@ -5,10 +5,13 @@ using namespace std;
 
 #include "Order.h"
 #include "Customer.h"
+#include "Parser.h"
 
 class BaseAction;
 class Volunteer;
-
+#define CUSTOMER "customer"
+#define SOLDIER "soldier"
+#define CIVILIAN "civilian"
 // Warehouse responsible for Volunteers, Customers Actions, and Orders.
 
 
@@ -36,4 +39,5 @@ class WareHouse {
         vector<Customer*> customers;
         int customerCounter; //For assigning unique customer IDs
         int volunteerCounter; //For assigning unique volunteer IDs
+        Parser parser;
 };
