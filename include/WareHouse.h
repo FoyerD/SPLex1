@@ -15,6 +15,13 @@ class Volunteer;
 #define VOLUNTEER "volunteer"
 #define SOLDIER "soldier"
 #define CIVILIAN "civilian"
+#define COLLECTOR "collector"
+#define DRIVER "driver"
+#define DOES_NOT_EXIST -1
+#define CASE_DRIVER 5
+#define CASE_LDRIVER 6
+#define CASE_COLLECTOR 4
+#define CASE_LCOLLECTOR 5
 // Warehouse responsible for Volunteers, Customers Actions, and Orders.
 
 
@@ -43,4 +50,5 @@ class WareHouse {
         int customerCounter; //For assigning unique customer IDs
         int volunteerCounter; //For assigning unique volunteer IDs
         Parser parser;
+        void proccessConfigFile();
 };
