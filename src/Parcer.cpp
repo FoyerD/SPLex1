@@ -19,7 +19,7 @@ vector<string> Parser::ParseFile(){
 vector<string> Parser::ParseLine(string line){
     string word;
     stringstream ss(line);
-    vector<const string> line_words;
+    vector<string> line_words;
     while (getline(ss, word, ' ')) {
         line_words.push_back(word);
     }
