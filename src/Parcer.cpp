@@ -16,7 +16,7 @@ vector<string> Parser::ParseFile(){
     return data;
 }
 
-vector<const string> Parser::ParseLine(string line){
+vector<string> Parser::ParseLine(string line){
     string word;
     stringstream ss(line);
     vector<const string> line_words;
