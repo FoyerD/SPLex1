@@ -1,15 +1,18 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 #include "Order.h"
 #include "Customer.h"
 #include "Parser.h"
+#include "Volunteer.h"
 
 class BaseAction;
 class Volunteer;
 #define CUSTOMER "customer"
+#define VOLUNTEER "volunteer"
 #define SOLDIER "soldier"
 #define CIVILIAN "civilian"
 // Warehouse responsible for Volunteers, Customers Actions, and Orders.

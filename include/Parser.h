@@ -10,7 +10,7 @@ class Parser{
     public:
         Parser(const string &configFilePath);
         vector<string> ParseFile();
-        vector<const string> ParseLine(string);
+        vector<string> ParseLine(string line);
     private:
         const string &configFilePath;
 };
