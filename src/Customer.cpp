@@ -41,7 +41,7 @@ bool Customer::canMakeOrder() const{
 /**
  * @returns - all orders id's in a vector
 */
-const vector<int> &Customer::getOrders() const{
+const vector<int> &Customer::getOrdersIds() const{
     return ordersId;
 }
 
@@ -84,6 +84,6 @@ CivilianCustomer::CivilianCustomer(int id, string name, int locationDistance, in
 /**
  * @returns - a CivilianCustomer object that is a clone to the current CivilianCustomer
 */
-CivilianCustomer* CivilianCustomer::clone() const {
+CivilianCustomer* CivilianCustomer::clone() const{
     return new CivilianCustomer(*this);
 }
