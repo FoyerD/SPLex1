@@ -5,7 +5,8 @@ WareHouse::WareHouse(const string &configFilePath): isOpen(false), customerCount
 }
 
 void WareHouse::start(){
-    while(true){
+    isOpen = true;
+    while(isOpen){
         
     }
 }
@@ -50,6 +51,15 @@ const vector<BaseAction*> &WareHouse::getActions() const{
 }
 
 void WareHouse::close(){
+    for (auto & element : pendingOrders) {
+         cout << (*element).printStatus() << endl;
+    }
+    for (auto & element : inProcessOrders) {
+         cout << (*element).printStatus() << endl;
+    }
+    for (auto & element : completedOrders) {
+         cout << (*element).printStatus() << endl;
+    }
     isOpen = false;
 }
 
