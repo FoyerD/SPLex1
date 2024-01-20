@@ -8,7 +8,7 @@ using namespace std;
 #include "Customer.h"
 #include "Parser.h"
 #include "Volunteer.h"
-
+#include "Action.h"
 class BaseAction;
 class Volunteer;
 #define CUSTOMER "customer"
@@ -17,6 +17,15 @@ class Volunteer;
 #define CIVILIAN "civilian"
 #define COLLECTOR "collector"
 #define DRIVER "driver"
+#define STEP "step"
+#define ADDORDER "order"
+#define ORDER_STATUS "orderStatus"
+#define CUSTOMER_STATUS "customerStatus"
+#define VOLUNTEER_STATUS "volunteerStatus"
+#define LOG "log"
+#define CLOSE "close"
+#define BACKUP "backup"
+#define RESTORE "restore"
 #define DOES_NOT_EXIST -1
 #define CASE_DRIVER 5
 #define CASE_LDRIVER 6
@@ -36,6 +45,7 @@ class WareHouse {
         Volunteer &getVolunteer(int volunteerId) const;
         Order &getOrder(int orderId) const;
         const vector<BaseAction*> &getActions() const;
+        int getOrdersNumber() const;
         void close();
         void open();
 
@@ -51,4 +61,5 @@ class WareHouse {
         int volunteerCounter; //For assigning unique volunteer IDs
         Parser parser;
         void proccessConfigFile();
+        int orderCounter;
 };

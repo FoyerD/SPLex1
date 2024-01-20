@@ -5,14 +5,50 @@ WareHouse::WareHouse(const string &configFilePath): isOpen(false), customerCount
 }
 
 void WareHouse::start(){
-    isOpen = true;
+    open();
     while(isOpen){
-        
+        string currInput;
+        getline(cin, currInput);
+        vector<string> splitedInput = parser.ParseLine(currInput);
+        BaseAction* currAction;
+        if(splitedInput[0].compare(STEP) == 0){
+            currAction = new SimulateStep(stoi(splitedInput[1]));
+        }
+        if(splitedInput[0].compare(ADDORDER) == 0){
+            currAction = new AddOrder(stoi(splitedInput[1]));
+        }
+        if(splitedInput[0].compare(CUSTOMER) == 0){
+            currAction = new AddCustomer(splitedInput[1], splitedInput[2], stoi(splitedInput[3]), stoi(splitedInput[4]));
+        }
+        if(splitedInput[0].compare(ORDER_STATUS) == 0){
+            currAction = new PrintOrderStatus(stoi(splitedInput[1]));
+        }
+        if(splitedInput[0].compare(CUSTOMER_STATUS) == 0){
+            currAction = new PrintCustomerStatus(stoi(splitedInput[1]));
+        }
+        if(splitedInput[0].compare(VOLUNTEER_STATUS) == 0){
+            currAction = new PrintVolunteerStatus(stoi(splitedInput[1]));
+        }
+        if(splitedInput[0].compare(LOG) == 0){
+            currAction = new PrintActionsLog();
+        }
+        if(splitedInput[0].compare(CLOSE) == 0){
+            currAction = new Close();
+        }
+        if(splitedInput[0].compare(BACKUP) == 0){
+            currAction = new BackupWareHouse();
+        }
+        if(splitedInput[0].compare(RESTORE) == 0){
+            currAction = new RestoreWareHouse();
+        }
+        actionsLog.push_back(currAction);
+        currAction->act(*this);
     }
 }
 
 void WareHouse::addOrder(Order* order){
     pendingOrders.push_back(order);
+    orderCounter++;
 }
 
 void WareHouse::addAction(BaseAction* action){
@@ -20,28 +56,30 @@ void WareHouse::addAction(BaseAction* action){
 }
 
 Customer &WareHouse::getCustomer(int customerId) const{
-    for (auto & element : customers) {
-        if(element->getId() == customerId) return *element;
+    if(customerId < 0 || customerId > customerCounter){
+        throw invalid_argument(string("no customer with id: " + to_string(customerId)));
     }
-    throw invalid_argument(string("no customer with id: " + to_string(customerId)));
+    for (auto & customer : customers) {
+        if(customer->getId() == customerId) return *customer;
+    }
 }
 
 Volunteer &WareHouse::getVolunteer(int volunteerId) const{
-    for (auto & element : volunteers) {
-        if(element->getId() == volunteerId) return *element;
+    for (auto & volunteer : volunteers) {
+        if(volunteer->getId() == volunteerId) return *volunteer;
     }
     throw invalid_argument(string("no volunteer with id: " + to_string(volunteerId)));
 }
 
 Order &WareHouse::getOrder(int orderId) const{
-    for (auto & element : pendingOrders) {
-        if(element->getId() == orderId) return *element;
+    for (auto & order : pendingOrders) {
+        if(order->getId() == orderId) return *order;
     }
-    for (auto & element : inProcessOrders) {
-        if(element->getId() == orderId) return *element;
+    for (auto & order : inProcessOrders) {
+        if(order->getId() == orderId) return *order;
     }
-    for (auto & element : completedOrders) {
-        if(element->getId() == orderId) return *element;
+    for (auto & order : completedOrders) {
+        if(order->getId() == orderId) return *order;
     }
     throw invalid_argument(string("no Order with id: " + to_string(orderId)));
 }
@@ -51,20 +89,43 @@ const vector<BaseAction*> &WareHouse::getActions() const{
 }
 
 void WareHouse::close(){
-    for (auto & element : pendingOrders) {
-         cout << (*element).printStatus() << endl;
+    for (auto & order : pendingOrders) {
+         cout << (*order).printAfterClose() << endl;
+         delete order;
+         order = nullptr;
     }
-    for (auto & element : inProcessOrders) {
-         cout << (*element).printStatus() << endl;
+    for (auto & order : inProcessOrders) {
+         cout << (*order).printAfterClose() << endl;
+         delete order;
+         order = nullptr;
     }
-    for (auto & element : completedOrders) {
-         cout << (*element).printStatus() << endl;
+    for (auto & order : completedOrders) {
+         cout << (*order).printAfterClose() << endl;
+         delete order;
+         order = nullptr;
+    }
+    for (auto & customer : customers) {
+         delete customer;
+         customer = nullptr;
+    }
+    for (auto & volunteer : volunteers) {
+         delete volunteer;
+         volunteer = nullptr;
+    }
+    for (auto & action : actionsLog) {
+         delete action;
+         action = nullptr;
     }
     isOpen = false;
 }
 
 void WareHouse::open(){
     isOpen = true;
+    cout << "Warehouse is open!" << endl;
+}
+
+int WareHouse::getOrdersNumber() const{
+    return orderCounter;
 }
 
 void WareHouse::proccessConfigFile(){
