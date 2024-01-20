@@ -38,6 +38,7 @@ class Order {
         const string toString() const;
         const int getDistance() const;
         const string printStatus() const;
+        const string printAfterClose() const;
     private:
         const int id;
         const int customerId;
