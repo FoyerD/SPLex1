@@ -92,6 +92,41 @@ const vector<BaseAction*> &WareHouse::getActions() const{
 }
 
 void WareHouse::close(){
+    isOpen = false;
+}
+
+void WareHouse::open(){
+    isOpen = true;
+    cout << "Warehouse is open!" << endl;
+}
+
+int WareHouse::getOrdersNumber() const{
+    return orderCounter;
+}
+
+WareHouse::WareHouse(const WareHouse& otherWareHouse): isOpen(otherWareHouse.isOpen), customerCounter(otherWareHouse.customerCounter),
+volunteerCounter(otherWareHouse.volunteerCounter), parser(otherWareHouse.parser), orderCounter(otherWareHouse.orderCounter){
+    for(auto& action: otherWareHouse.actionsLog){
+        actionsLog.push_back(action->clone());
+    }
+    for(auto& volunteer: otherWareHouse.volunteers){
+        volunteers.push_back(volunteer->clone());
+    }
+    for(auto& customer: otherWareHouse.customers){
+        customers.push_back(customer->clone());
+    }
+    for(auto& pendingOrder: otherWareHouse.pendingOrders){
+        pendingOrders.push_back(new Order(*pendingOrder));
+    }
+    for(auto& inProcessOrder: otherWareHouse.inProcessOrders){
+        inProcessOrders.push_back(new Order(*inProcessOrder));
+    }
+    for(auto& completedOrder: otherWareHouse.completedOrders){
+        completedOrders.push_back(new Order(*completedOrder));
+    }
+}
+
+WareHouse::~WareHouse(){
     for (auto & order : pendingOrders) {
          cout << (*order).printAfterClose() << endl;
          delete order;
@@ -119,16 +154,23 @@ void WareHouse::close(){
          delete action;
          action = nullptr;
     }
-    isOpen = false;
+    pendingOrders.clear();
+    inProcessOrders.clear();
+    completedOrders.clear();
+    customers.clear();
+    volunteers.clear();
+    actionsLog.clear();
 }
 
-void WareHouse::open(){
-    isOpen = true;
-    cout << "Warehouse is open!" << endl;
-}
-
-int WareHouse::getOrdersNumber() const{
-    return orderCounter;
+WareHouse& WareHouse::operator=(const WareHouse& other){
+    if(&other != this){
+        isOpen = other.isOpen;
+        customerCounter = other.customerCounter;
+        volunteerCounter = other.volunteerCounter;
+        //parser = other.parser;
+        orderCounter = other.orderCounter;
+    }
+    return *this;
 }
 
 void WareHouse::proccessConfigFile(){

@@ -32,12 +32,13 @@ class Volunteer;
 #define CASE_COLLECTOR 4
 #define CASE_LCOLLECTOR 5
 // Warehouse responsible for Volunteers, Customers Actions, and Orders.
-
+extern WareHouse* backup;
 
 class WareHouse {
 
     public:
         WareHouse(const string &configFilePath);
+        WareHouse(const WareHouse& otherWareHouse);
         void start();
         void addOrder(Order* order);
         void addAction(BaseAction* action);
@@ -48,6 +49,8 @@ class WareHouse {
         int getOrdersNumber() const;
         void close();
         void open();
+        ~WareHouse();
+        WareHouse& operator=(const WareHouse& other);
 
     private:
         bool isOpen;
