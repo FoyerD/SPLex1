@@ -14,32 +14,35 @@ void WareHouse::start(){
         if(splitedInput[0].compare(STEP) == 0){
             currAction = new SimulateStep(stoi(splitedInput[1]));
         }
-        if(splitedInput[0].compare(ADDORDER) == 0){
+        else if(splitedInput[0].compare(ADDORDER) == 0){
             currAction = new AddOrder(stoi(splitedInput[1]));
         }
-        if(splitedInput[0].compare(CUSTOMER) == 0){
+        else if(splitedInput[0].compare(CUSTOMER) == 0){
             currAction = new AddCustomer(splitedInput[1], splitedInput[2], stoi(splitedInput[3]), stoi(splitedInput[4]));
         }
-        if(splitedInput[0].compare(ORDER_STATUS) == 0){
+        else if(splitedInput[0].compare(ORDER_STATUS) == 0){
             currAction = new PrintOrderStatus(stoi(splitedInput[1]));
         }
-        if(splitedInput[0].compare(CUSTOMER_STATUS) == 0){
+        else if(splitedInput[0].compare(CUSTOMER_STATUS) == 0){
             currAction = new PrintCustomerStatus(stoi(splitedInput[1]));
         }
-        if(splitedInput[0].compare(VOLUNTEER_STATUS) == 0){
+        else if(splitedInput[0].compare(VOLUNTEER_STATUS) == 0){
             currAction = new PrintVolunteerStatus(stoi(splitedInput[1]));
         }
-        if(splitedInput[0].compare(LOG) == 0){
+        else if(splitedInput[0].compare(LOG) == 0){
             currAction = new PrintActionsLog();
         }
-        if(splitedInput[0].compare(CLOSE) == 0){
+        else if(splitedInput[0].compare(CLOSE) == 0){
             currAction = new Close();
         }
-        if(splitedInput[0].compare(BACKUP) == 0){
+        else if(splitedInput[0].compare(BACKUP) == 0){
             currAction = new BackupWareHouse();
         }
-        if(splitedInput[0].compare(RESTORE) == 0){
+        else if(splitedInput[0].compare(RESTORE) == 0){
             currAction = new RestoreWareHouse();
+        }
+        else {
+            continue;
         }
         actionsLog.push_back(currAction);
         currAction->act(*this);
