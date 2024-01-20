@@ -56,3 +56,9 @@ const string Order::printStatus() const{
     s << "OrderId: " << id + "/nOrderStatus: " << OrderStatusNames[int(status)];
     return s.str();
 }
+
+const string Order::printAfterClose() const{
+    ostringstream s;
+    s << "OrderId: " << id + ", CustomerID: " << customerId << ", OrderStatus: " << OrderStatusNames[int(status)];
+    return s.str();
+}
