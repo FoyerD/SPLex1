@@ -8,9 +8,8 @@ using namespace std;
 
 class Parser{
     public:
-        Parser(const string &configFilePath);
-        vector<string> ParseFile();
-        vector<string> ParseLine(string line);
+        Parser();
+        vector<string> ParseFile(const string &configFilePath);
+        vector<string> Parser::ParseLine(string line);
     private:
-        const string &configFilePath;
 };
