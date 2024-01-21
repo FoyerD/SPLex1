@@ -56,9 +56,13 @@ void DriverVolunteer::acceptOrder(const Order& order){
 
 /**
  * Decrease distanceLeft by distancePerStep
+ * and only allows current order
+ * to be completed if completedOrderId == NO_ORDER
+ * If ditanceLeft is 0, set completeOrderId to activeOrderId
+ * and set activeOrderId to NO_ORDER
 */
 void DriverVolunteer::step(){
-    if(decreaseDistanceLeft()){
+    if(decreaseDistanceLeft() && completedOrderId == NO_ORDER){
         completedOrderId = activeOrderId;
         activeOrderId = NO_ORDER;
     }
