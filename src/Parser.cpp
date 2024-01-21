@@ -1,8 +1,8 @@
 #include "include/Parser.h"
 
-Parser::Parser(const string &FilePath): configFilePath(FilePath){}
+Parser::Parser(){}
 
-vector<string> Parser::ParseFile(){
+vector<string> Parser::ParseFile(const string &configFilePath){
     fstream configFile;
     vector<string> data;
     configFile.open(configFilePath, ios::out);
@@ -25,5 +25,3 @@ vector<string> Parser::ParseLine(string line){
     }
     return line_words;
 }
-
-Parser::Parser(const Parser& parser): configFilePath(parser.configFilePath){}
