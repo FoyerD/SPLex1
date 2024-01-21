@@ -39,7 +39,7 @@ class WareHouse {
     public:
         WareHouse(const string &configFilePath);
         WareHouse(const WareHouse& otherWareHouse);
-        WareHouse(const WareHouse&& otherWareHouse);
+        WareHouse(WareHouse&& otherWareHouse);
         void start();
         void addOrder(Order* order);
         void addAction(BaseAction* action);
@@ -52,7 +52,7 @@ class WareHouse {
         void open();
         ~WareHouse();
         WareHouse& operator=(const WareHouse& other);
-        WareHouse& operator=(const WareHouse&& other);
+        WareHouse& operator=(WareHouse&& other);
     private:
         bool isOpen;
         vector<BaseAction*> actionsLog;

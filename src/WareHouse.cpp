@@ -126,12 +126,12 @@ volunteerCounter(otherWareHouse.volunteerCounter), parser(otherWareHouse.parser)
     }
 }
 
-WareHouse::WareHouse(const WareHouse&& otherWareHouse): isOpen(otherWareHouse.isOpen), customerCounter(otherWareHouse.customerCounter),
+WareHouse::WareHouse(WareHouse&& otherWareHouse): isOpen(otherWareHouse.isOpen), customerCounter(otherWareHouse.customerCounter),
 volunteerCounter(otherWareHouse.volunteerCounter), parser(otherWareHouse.parser), orderCounter(otherWareHouse.orderCounter),
 pendingOrders(otherWareHouse.pendingOrders), inProcessOrders(otherWareHouse.inProcessOrders), completedOrders(otherWareHouse.completedOrders),
 customers(otherWareHouse.customers), volunteers(otherWareHouse.volunteers), actionsLog(otherWareHouse.actionsLog){
-    for (int i = 0; i < otherWareHouse.pendingOrders.size(); i++) {
-         otherWareHouse.pendingOrders.at(i) = nullptr
+    for (auto & order : otherWareHouse.pendingOrders) {
+         order = nullptr;
     }
     for (auto & order : otherWareHouse.inProcessOrders) {
          order = nullptr;
@@ -148,6 +148,51 @@ customers(otherWareHouse.customers), volunteers(otherWareHouse.volunteers), acti
     for (auto & action : otherWareHouse.actionsLog) {
          action = nullptr;
     }
+    otherWareHouse.actionsLog.clear();
+    otherWareHouse.customers.clear();
+    otherWareHouse.volunteers.clear();
+    otherWareHouse.pendingOrders.clear();
+    otherWareHouse.inProcessOrders.clear();
+    otherWareHouse.completedOrders.clear();
+}
+
+WareHouse& WareHouse::operator=(WareHouse&& other){
+    if(this != &other){
+        this->isOpen = other.isOpen;
+        this->orderCounter = other.orderCounter;
+        this->customerCounter = other.customerCounter;
+        this->volunteerCounter = other.volunteerCounter;
+        this->parser = other.parser;
+        for (BaseAction* action : actionsLog) {
+            delete action;
+        }
+        for (Volunteer* volunteer : volunteers) {
+            delete volunteer;
+        }
+        for (Order* order : pendingOrders) {
+            delete order;
+        }
+        for (Order* order : inProcessOrders) {
+            delete order;
+        }
+        for (Order* order : completedOrders) {
+            delete order;
+        }
+        for (Customer* customer : customers) {
+            delete customer;
+        }
+        this->pendingOrders = other.pendingOrders;
+        this->inProcessOrders = other.inProcessOrders;
+        this->completedOrders = other.completedOrders;
+        this->actionsLog = other.actionsLog;
+        this->customers = other.customers;
+        this->volunteers = other.volunteers;
+        other.isOpen = false;
+        other.customerCounter = 0;
+        other.volunteerCounter = 0;
+        other.orderCounter = 0;
+    }
+    return *this;
 }
 
 WareHouse::~WareHouse(){
