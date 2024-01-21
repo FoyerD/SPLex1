@@ -26,3 +26,4 @@ vector<string> Parser::ParseLine(string line){
     return line_words;
 }
 
+Parser::Parser(const Parser& parser): configFilePath(parser.configFilePath){}
