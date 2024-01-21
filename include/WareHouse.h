@@ -42,6 +42,8 @@ class WareHouse {
         WareHouse(WareHouse&& otherWareHouse);
         void start();
         void addOrder(Order* order);
+        void addCustomer(Customer* customer);
+        void addVolunteer(Volunteer* Volunteer);
         void addAction(BaseAction* action);
         Customer &getCustomer(int customerId) const;
         Volunteer &getVolunteer(int volunteerId) const;

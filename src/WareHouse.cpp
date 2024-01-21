@@ -261,6 +261,16 @@ WareHouse& WareHouse::operator=(const WareHouse& other){
     return *this;
 }
 
+void WareHouse::addCustomer(Customer* customer){
+    this->customers.push_back(customer);
+    customerCounter++;
+}
+
+void WareHouse::addVolunteer(Volunteer* Volunteer){
+    this->volunteers.push_back(Volunteer);
+    volunteerCounter++;
+}
+
 void WareHouse::proccessConfigFile(const string &configFilePath){
     vector<string> lines =  parser.ParseFile(configFilePath);
     for(int i = 0; i < lines.size(); i++){
