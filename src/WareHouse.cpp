@@ -1,7 +1,7 @@
 #include "WareHouse.h"
 
-WareHouse::WareHouse(const string &configFilePath): isOpen(false), customerCounter(0), volunteerCounter(0), parser(configFilePath){
-    proccessConfigFile();
+WareHouse::WareHouse(const string &configFilePath): isOpen(false), customerCounter(0), volunteerCounter(0), parser(){
+    proccessConfigFile(configFilePath);
 }
 
 void WareHouse::start(){
@@ -126,6 +126,30 @@ volunteerCounter(otherWareHouse.volunteerCounter), parser(otherWareHouse.parser)
     }
 }
 
+WareHouse::WareHouse(const WareHouse&& otherWareHouse): isOpen(otherWareHouse.isOpen), customerCounter(otherWareHouse.customerCounter),
+volunteerCounter(otherWareHouse.volunteerCounter), parser(otherWareHouse.parser), orderCounter(otherWareHouse.orderCounter),
+pendingOrders(otherWareHouse.pendingOrders), inProcessOrders(otherWareHouse.inProcessOrders), completedOrders(otherWareHouse.completedOrders),
+customers(otherWareHouse.customers), volunteers(otherWareHouse.volunteers), actionsLog(otherWareHouse.actionsLog){
+    for (int i = 0; i < otherWareHouse.pendingOrders.size(); i++) {
+         otherWareHouse.pendingOrders.at(i) = nullptr
+    }
+    for (auto & order : otherWareHouse.inProcessOrders) {
+         order = nullptr;
+    }
+    for (auto & order : otherWareHouse.completedOrders) {
+         order = nullptr;
+    }
+    for (auto & customer : otherWareHouse.customers) {
+         customer = nullptr;
+    }
+    for (auto & volunteer : otherWareHouse.volunteers) {
+         volunteer = nullptr;
+    }
+    for (auto & action : otherWareHouse.actionsLog) {
+         action = nullptr;
+    }
+}
+
 WareHouse::~WareHouse(){
     for (auto & order : pendingOrders) {
          cout << (*order).printAfterClose() << endl;
@@ -167,14 +191,33 @@ WareHouse& WareHouse::operator=(const WareHouse& other){
         isOpen = other.isOpen;
         customerCounter = other.customerCounter;
         volunteerCounter = other.volunteerCounter;
-        //parser = other.parser;
+        parser = other.parser;
         orderCounter = other.orderCounter;
+        WareHouse::~WareHouse();
+        for (auto & order : other.pendingOrders) {
+            pendingOrders.push_back(new Order(*order));
+        }
+        for (auto & order : other.inProcessOrders) {
+            inProcessOrders.push_back(new Order(*order));
+        }
+        for (auto & order : other.completedOrders) {
+            completedOrders.push_back(new Order(*order));
+        }
+        for (auto & customer : other.customers) {
+            customers.push_back(customer->clone());
+        }
+        for (auto & volunteer : other.volunteers) {
+            volunteers.push_back(volunteer->clone());
+        }
+        for (auto & action : other.actionsLog) {
+            actionsLog.push_back(action->clone());
+        }
     }
     return *this;
 }
 
-void WareHouse::proccessConfigFile(){
-    vector<string> lines =  parser.ParseFile();
+void WareHouse::proccessConfigFile(const string &configFilePath){
+    vector<string> lines =  parser.ParseFile(configFilePath);
     for(int i = 0; i < lines.size(); i++){
         vector<string> currLine = parser.ParseLine(lines[i]);
         if(currLine[0].compare(CUSTOMER) == 0){

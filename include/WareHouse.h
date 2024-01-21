@@ -39,6 +39,7 @@ class WareHouse {
     public:
         WareHouse(const string &configFilePath);
         WareHouse(const WareHouse& otherWareHouse);
+        WareHouse(const WareHouse&& otherWareHouse);
         void start();
         void addOrder(Order* order);
         void addAction(BaseAction* action);
@@ -51,7 +52,7 @@ class WareHouse {
         void open();
         ~WareHouse();
         WareHouse& operator=(const WareHouse& other);
-
+        WareHouse& operator=(const WareHouse&& other);
     private:
         bool isOpen;
         vector<BaseAction*> actionsLog;
@@ -63,6 +64,6 @@ class WareHouse {
         int customerCounter; //For assigning unique customer IDs
         int volunteerCounter; //For assigning unique volunteer IDs
         Parser parser;
-        void proccessConfigFile();
+        void proccessConfigFile(const string &configFilePath);
         int orderCounter;
 };
