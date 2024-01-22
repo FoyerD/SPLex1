@@ -45,8 +45,12 @@ class SimulateStep : public BaseAction {
         SimulateStep *clone() const override;
 
     private:
-        void singleStep(WareHouse& WareHouse);
         const int numOfSteps;
+        void singleStep(WareHouse& wareHouse);
+        void phase1(WareHouse& wareHouse);
+        void phase2(WareHouse& wareHouse);
+        void phase3(WareHouse& wareHouse);
+        void phase4(WareHouse& wareHouse);
 };
 
 class AddOrder : public BaseAction {

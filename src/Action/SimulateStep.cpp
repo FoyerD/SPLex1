@@ -27,6 +27,18 @@ void SimulateStep::act(WareHouse& wareHouse){
     }
 }
 
-void SimulateStep::singleStep(WareHouse& WareHouse){
-    for(Order& currOrder : WareHouse.getOrder();)
+void SimulateStep::singleStep(WareHouse& wareHouse){
+    phase1(wareHouse);
+    phase2(wareHouse);
+    phase3(wareHouse);
+    phase4(wareHouse);
 }
+
+
+void SimulateStep::phase1(WareHouse& wareHouse){
+    for(Order* currOrder : wareHouse.getPendingOrders()){
+        
+    }
+}
+
+
