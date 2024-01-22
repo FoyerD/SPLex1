@@ -60,6 +60,8 @@ class WareHouse {
         WareHouse& operator=(WareHouse&& other);
         Volunteer* findFreeVolunteer(Order& orderToHandle);
         void moveToInProcces(Order* orderToMove);
+        void moveToCompleted(Order* orderToMove);
+        void moveToPending(Order* orderToMove);
     private:
         bool isOpen;
         vector<BaseAction*> actionsLog;

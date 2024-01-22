@@ -50,16 +50,10 @@ void WareHouse::start(){
 }
 
 void WareHouse::addOrder(Order* order){
-    if(order->getStatus() == OrderStatus::PENDING || order->getStatus() == OrderStatus::COLLECTING){
+    if(order->getStatus() == OrderStatus::PENDING){
         pendingOrders.push_back(order);
+        orderCounter++;
     }
-    if(order->getStatus() == OrderStatus::DELIVERING){
-        inProcessOrders.push_back(order);
-    }
-    if(order->getStatus() == OrderStatus::COMPLETED){
-        completedOrders.push_back(order);
-    }
-    orderCounter++;
 }
 
 void WareHouse::addAction(BaseAction* action){
@@ -344,4 +338,14 @@ Volunteer* WareHouse::findFreeVolunteer(Order& orderToHandle){
 void WareHouse::moveToInProcces(Order* orderToMove){
     pendingOrders.erase(find(pendingOrders.begin(), pendingOrders.end(), orderToMove));
     inProcessOrders.push_back(orderToMove);
+}
+
+void WareHouse::moveToCompleted(Order* orderToMove){
+    inProcessOrders.erase(find(inProcessOrders.begin(), inProcessOrders.end(), orderToMove));
+    completedOrders.push_back(orderToMove);
+}
+
+void WareHouse::moveToPending(Order* orderToMove){
+    inProcessOrders.erase(find(inProcessOrders.begin(), inProcessOrders.end(), orderToMove));
+    pendingOrders.push_back(orderToMove);
 }
