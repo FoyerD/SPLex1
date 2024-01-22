@@ -9,6 +9,7 @@ Volunteer::Volunteer(int id, const string& name):
                     name(name),
                     completedOrderId(NO_ORDER),
                     activeOrderId(NO_ORDER){}
+Volunteer::~Volunteer(){}
 int Volunteer::getId() const{return id;}
 const string& Volunteer::getName() const{return name;}
 int Volunteer::getActiveOrderId() const{return activeOrderId;}

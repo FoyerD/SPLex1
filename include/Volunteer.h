@@ -23,6 +23,7 @@ class Volunteer {
 
         virtual string toString() const = 0;
         virtual Volunteer* clone() const = 0; //Return a copy of the volunteer
+        virtual ~Volunteer();
 
     protected:
         int completedOrderId; //Initialized to NO_ORDER if no order has been completed yet
@@ -40,6 +41,7 @@ class CollectorVolunteer: public Volunteer {
     public:
         CollectorVolunteer(int id, string name, int coolDown);
         CollectorVolunteer *clone() const override;
+        virtual ~CollectorVolunteer();
         void step() override;
         int getCoolDown() const;
         int getTimeLeft() const;
@@ -59,6 +61,7 @@ class LimitedCollectorVolunteer: public CollectorVolunteer {
     public:
         LimitedCollectorVolunteer(int id, string name, int coolDown ,int maxOrders);
         LimitedCollectorVolunteer *clone() const override;
+        virtual ~LimitedCollectorVolunteer();
         bool hasOrdersLeft() const override;
         bool canTakeOrder(const Order &order) const override;
         void acceptOrder(const Order &order) override;
@@ -77,7 +80,7 @@ class DriverVolunteer: public Volunteer {
     public:
         DriverVolunteer(int id, string name, int maxDistance, int distancePerStep);
         DriverVolunteer *clone() const override;
-
+        virtual ~DriverVolunteer();
         int getDistanceLeft() const;
         int getMaxDistance() const;
         int getDistancePerStep() const;  
@@ -99,6 +102,7 @@ class LimitedDriverVolunteer: public DriverVolunteer {
     public:
         LimitedDriverVolunteer(int id, const string &name, int maxDistance, int distancePerStep,int maxOrders);
         LimitedDriverVolunteer *clone() const override;
+        virtual ~LimitedDriverVolunteer();
         int getMaxOrders() const;
         int getNumOrdersLeft() const;
         bool hasOrdersLeft() const override;

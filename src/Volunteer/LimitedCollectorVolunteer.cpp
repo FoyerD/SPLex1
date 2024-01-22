@@ -11,6 +11,7 @@ LimitedCollectorVolunteer::LimitedCollectorVolunteer(int id, string name, int co
                                                     maxOrders(maxOrders),
                                                     ordersLeft(maxOrders){}
 
+LimitedCollectorVolunteer::~LimitedCollectorVolunteer(){}
 /**
  * @returns - a new instance of volunteer with same parameters(not busy)
 */

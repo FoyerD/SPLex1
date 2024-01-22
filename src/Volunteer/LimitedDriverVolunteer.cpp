@@ -13,6 +13,7 @@ LimitedDriverVolunteer::LimitedDriverVolunteer(int id, const string &name, int m
                                                 ordersLeft(maxOrders){}
 
 
+LimitedDriverVolunteer::~LimitedDriverVolunteer(){}
 LimitedDriverVolunteer* LimitedDriverVolunteer::clone() const{
     return new LimitedDriverVolunteer(*this);
 }

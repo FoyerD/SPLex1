@@ -9,6 +9,8 @@ CollectorVolunteer::CollectorVolunteer(int id, string name, int coolDown):
                                         Volunteer::Volunteer(id,name),
                                         coolDown(coolDown),
                                         timeLeft(0){}
+
+CollectorVolunteer::~CollectorVolunteer(){}
 /**
  * @returns - a new instance of volunteer with same parameters(not busy)
 */

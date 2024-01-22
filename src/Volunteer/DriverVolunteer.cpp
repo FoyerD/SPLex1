@@ -14,6 +14,8 @@ DriverVolunteer::DriverVolunteer(int id,string name, int maxDistance, int distan
 DriverVolunteer* DriverVolunteer::clone() const{
     return new DriverVolunteer(*this);
 }
+DriverVolunteer::~DriverVolunteer(){}
+
 int DriverVolunteer::getDistanceLeft() const{return distanceLeft;}
 int DriverVolunteer::getMaxDistance() const{return maxDistance;}
 int DriverVolunteer::getDistancePerStep() const{return distancePerStep;}
