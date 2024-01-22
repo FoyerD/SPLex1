@@ -1,9 +1,14 @@
 #include "WareHouse.h"
-
+/**
+ * @brief Construct a new Ware House:: Ware House object
+ * 
+ * @param configFilePath - the path to the configuration file given by the user
+ */
 WareHouse::WareHouse(const string &configFilePath): isOpen(false), customerCounter(0), volunteerCounter(0), parser(){
     proccessConfigFile(configFilePath);
 }
 
+//this function runs a loop that gets the user input and acts accordingly
 void WareHouse::start(){
     open();
     while(isOpen){
@@ -49,6 +54,11 @@ void WareHouse::start(){
     }
 }
 
+/**
+ * @brief this function adds an order to the pending orders list
+ * 
+ * @param order - the order to add to the pending orders list
+ */
 void WareHouse::addOrder(Order* order){
     if(order->getStatus() == OrderStatus::PENDING){
         pendingOrders.push_back(order);
@@ -56,10 +66,21 @@ void WareHouse::addOrder(Order* order){
     }
 }
 
+/**
+ * @brief this function adds an action to the actions log list
+ * 
+ * @param action - the action we want to add
+ */
 void WareHouse::addAction(BaseAction* action){
     actionsLog.push_back(action);
 }
 
+/**
+ * @brief - this functions gets a customer with the id, customerId
+ * 
+ * @param customerId - the id of the customer we want to get
+ * @return - a reference to the customer if found, else throw an exception
+ */
 Customer &WareHouse::getCustomer(int customerId) const{
     if(customerId < 0 || customerId > customerCounter){
         throw invalid_argument(string("no customer with id: " + to_string(customerId)));
@@ -69,6 +90,12 @@ Customer &WareHouse::getCustomer(int customerId) const{
     }
 }
 
+/**
+ * @brief - this function gets a volunteer with the id, volunteerId
+ * 
+ * @param volunteerId - the id of the volunteer we want to get 
+ * @return - a reference to the volunteer if found, elsethrow a exception
+ */
 Volunteer &WareHouse::getVolunteer(int volunteerId) const{
     for (auto & volunteer : volunteers) {
         if(volunteer->getId() == volunteerId) return *volunteer;
@@ -76,6 +103,12 @@ Volunteer &WareHouse::getVolunteer(int volunteerId) const{
     throw invalid_argument(string("no volunteer with id: " + to_string(volunteerId)));
 }
 
+/**
+ * @brief - this function gets an order with the id, orderId
+ * 
+ * @param orderId - the id of the order we want to get
+ * @return - a reference to the order if found, else throw an exception
+ */
 Order &WareHouse::getOrder(int orderId) const{
     for (auto & order : pendingOrders) {
         if(order->getId() == orderId) return *order;
@@ -93,10 +126,18 @@ const vector<BaseAction*> &WareHouse::getActions() const{
     return actionsLog;
 }
 
+/**
+ * @brief - this function closes the warehosue
+ * 
+ */
 void WareHouse::close(){
     isOpen = false;
 }
 
+/**
+ * @brief - this function opens the warehouse
+ * 
+ */
 void WareHouse::open(){
     isOpen = true;
     cout << "Warehouse is open!" << endl;
@@ -106,6 +147,11 @@ int WareHouse::getOrdersNumber() const{
     return orderCounter;
 }
 
+/**
+ * @brief Construct a new Ware House:: Ware House object
+ * 
+ * @param otherWareHouse - a reference to a warehouse object
+ */
 WareHouse::WareHouse(const WareHouse& otherWareHouse): isOpen(otherWareHouse.isOpen), customerCounter(otherWareHouse.customerCounter),
 volunteerCounter(otherWareHouse.volunteerCounter), parser(otherWareHouse.parser), orderCounter(otherWareHouse.orderCounter){
     for(auto& action: otherWareHouse.actionsLog){
@@ -128,6 +174,11 @@ volunteerCounter(otherWareHouse.volunteerCounter), parser(otherWareHouse.parser)
     }
 }
 
+/**
+ * @brief Construct a new Ware House:: Ware House object
+ * 
+ * @param otherWareHouse - a rvalue of type WareHosue
+ */
 WareHouse::WareHouse(WareHouse&& otherWareHouse): isOpen(otherWareHouse.isOpen), customerCounter(otherWareHouse.customerCounter),
 volunteerCounter(otherWareHouse.volunteerCounter), parser(otherWareHouse.parser), orderCounter(otherWareHouse.orderCounter),
 pendingOrders(otherWareHouse.pendingOrders), inProcessOrders(otherWareHouse.inProcessOrders), completedOrders(otherWareHouse.completedOrders),
@@ -158,6 +209,12 @@ customers(otherWareHouse.customers), volunteers(otherWareHouse.volunteers), acti
     otherWareHouse.completedOrders.clear();
 }
 
+/**
+ * @brief - a move operator
+ * 
+ * @param other - a rvalue of type WareHosue
+ * @return - a reference tp this after changing it's values to the values of other
+ */
 WareHouse& WareHouse::operator=(WareHouse&& other){
     if(this != &other){
         this->isOpen = other.isOpen;
@@ -197,6 +254,10 @@ WareHouse& WareHouse::operator=(WareHouse&& other){
     return *this;
 }
 
+/**
+ * @brief Destroy the Ware House:: Ware House object
+ * 
+ */
 WareHouse::~WareHouse(){
     for (auto & order : pendingOrders) {
          cout << (*order).printAfterClose() << endl;
@@ -233,6 +294,12 @@ WareHouse::~WareHouse(){
     actionsLog.clear();
 }
 
+/**
+ * @brief - assignment operator
+ * 
+ * @param other - a reference to a WareHouse object
+ * @return - a reference to this after changing it's values to other values 
+ */
 WareHouse& WareHouse::operator=(const WareHouse& other){
     if(&other != this){
         isOpen = other.isOpen;
@@ -263,16 +330,31 @@ WareHouse& WareHouse::operator=(const WareHouse& other){
     return *this;
 }
 
+/**
+ * @brief - this function adds a customer to the customers vector
+ * 
+ * @param customer - a pointer to the customer we want to add
+ */
 void WareHouse::addCustomer(Customer* customer){
     this->customers.push_back(customer);
     customerCounter++;
 }
 
+/**
+ * @brief - this function adds a volunteer to the volunteers vector
+ * 
+ * @param volunteer - a pointer to the volunteer we want to add
+ */
 void WareHouse::addVolunteer(Volunteer* Volunteer){
     this->volunteers.push_back(Volunteer);
     volunteerCounter++;
 }
 
+/**
+ * @brief - this functions proccesses the configuration file and adds all the customers and volunteers listed in it to the warehouse
+ * 
+ * @param configFilePath - the path to the configuration file given by the user
+ */
 void WareHouse::proccessConfigFile(const string &configFilePath){
     vector<string> lines =  parser.ParseFile(configFilePath);
     for(int i = 0; i < lines.size(); i++){
@@ -322,6 +404,12 @@ const vector<Order*>& WareHouse::getCompletedOrders() const{
     return completedOrders;
 }
 
+/**
+ * @brief - this function finds the first volunteer that is not processing an order
+ * 
+ * @param orderToHandle - he order we will give the volunteer
+ * @return - a pointer to the volunteer we found
+ */
 Volunteer* WareHouse::findFreeVolunteer(Order& orderToHandle){
     for(auto& volunteer : volunteers){
         if(volunteer->canTakeOrder(orderToHandle)){
@@ -331,16 +419,31 @@ Volunteer* WareHouse::findFreeVolunteer(Order& orderToHandle){
     return nullptr;
 }
 
-void WareHouse::moveToInProcces(Order* orderToMove){
+/**
+ * @brief - this functions removes an order from the pending orders and moves it to the in process orders
+ * 
+ * @param orderToMove - the order to move from pending to in process
+ */
+void WareHouse::moveToInProcess(Order* orderToMove){
     pendingOrders.erase(find(pendingOrders.begin(), pendingOrders.end(), orderToMove));
     inProcessOrders.push_back(orderToMove);
 }
 
+/**
+ * @brief - this functions removes an order from the in process orders and moves it to the completed orders
+ * 
+ * @param orderToMove - the order to move from in process to completed
+ */
 void WareHouse::moveToCompleted(Order* orderToMove){
     inProcessOrders.erase(find(inProcessOrders.begin(), inProcessOrders.end(), orderToMove));
     completedOrders.push_back(orderToMove);
 }
 
+/**
+ * @brief - this functions removes an order from the in process orders and moves it to the pending orders
+ * 
+ * @param orderToMove - the order to move from in process to pending
+ */
 void WareHouse::moveToPending(Order* orderToMove){
     inProcessOrders.erase(find(inProcessOrders.begin(), inProcessOrders.end(), orderToMove));
     pendingOrders.push_back(orderToMove);
