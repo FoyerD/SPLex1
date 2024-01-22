@@ -311,3 +311,15 @@ void WareHouse::proccessConfigFile(const string &configFilePath){
         }
     }
 }
+
+vector<Order*>& WareHouse::getPendingOrders(){
+        return pendingOrders;
+}
+
+vector<Order*>& WareHouse::getInProccesOrders(){
+        return inProcessOrders;
+}
+
+vector<Order*>& WareHouse::getCompletedOrders(){
+        return completedOrders;
+}
