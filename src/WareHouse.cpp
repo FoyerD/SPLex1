@@ -50,7 +50,15 @@ void WareHouse::start(){
 }
 
 void WareHouse::addOrder(Order* order){
-    pendingOrders.push_back(order);
+    if(order->getStatus() == OrderStatus::PENDING || order->getStatus() == OrderStatus::COLLECTING){
+        pendingOrders.push_back(order);
+    }
+    if(order->getStatus() == OrderStatus::DELIVERING){
+        inProcessOrders.push_back(order);
+    }
+    if(order->getStatus() == OrderStatus::COMPLETED){
+        completedOrders.push_back(order);
+    }
     orderCounter++;
 }
 
@@ -62,7 +70,6 @@ Customer &WareHouse::getCustomer(int customerId) const{
     if(customerId < 0 || customerId > customerCounter){
         throw invalid_argument(string("no customer with id: " + to_string(customerId)));
     }
-    Customer* customer = &(this->getCustomer(customerId));
     for (auto & customer : customers) {
         if(customer->getId() == customerId) return *customer;
     }
