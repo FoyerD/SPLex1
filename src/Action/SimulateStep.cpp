@@ -37,7 +37,17 @@ void SimulateStep::singleStep(WareHouse& wareHouse){
 
 void SimulateStep::phase1(WareHouse& wareHouse){
     for(Order* currOrder : wareHouse.getPendingOrders()){
-        
+        switch (currOrder->getStatus())
+        {
+        case OrderStatus::PENDING:
+            Volunteer* freeVolunteer(wareHouse.findFreeCollector());
+        case OrderStatus::COLLECTING:
+            Volunteer* freeVolunteer(wareHouse.findFreeDriver(), currOrder.getDitance());
+        default:
+            break;
+        }
+        ;
+        freeCollector->acceptOrder(currOrder)
     }
 }
 
