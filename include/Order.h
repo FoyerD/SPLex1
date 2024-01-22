@@ -2,8 +2,11 @@
 
 #include <string>
 #include <vector>
+#include <sstream>
+using namespace std;
 using std::string;
 using std::vector;
+
 
 
 class Volunteer;
@@ -16,6 +19,9 @@ enum class OrderStatus {
 };
 
 #define NO_VOLUNTEER -1
+#define NONE "None"
+
+vector<string> OrderStatusNames = {"PENDING", "COLLECTING", "DELIVERING", "COMPLETED"};
 
 class Order {
 
@@ -30,7 +36,9 @@ class Order {
         int getDriverId() const;
         OrderStatus getStatus() const;
         const string toString() const;
-
+        const int getDistance() const;
+        const string printStatus() const;
+        const string printAfterClose() const;
     private:
         const int id;
         const int customerId;
