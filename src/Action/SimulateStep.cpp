@@ -36,19 +36,34 @@ void SimulateStep::singleStep(WareHouse& wareHouse){
 
 
 void SimulateStep::phase1(WareHouse& wareHouse){
+    Volunteer* freeVolunteer = nullptr;
     for(Order* currOrder : wareHouse.getPendingOrders()){
         switch (currOrder->getStatus())
         {
         case OrderStatus::PENDING:
-            Volunteer* freeVolunteer(wareHouse.findFreeCollector());
+            freeVolunteer = wareHouse.findFreeCollector();//!TODO
+            if(freeVolunteer == nullptr) break;
+
+            freeVolunteer->acceptOrder(*currOrder);
+            currOrder->setCollectorId(freeVolunteer->getId());
+            currOrder->setStatus(OrderStatus::COLLECTING);
+            wareHouse.moveToInProcces(currOrder);//!TODO
         case OrderStatus::COLLECTING:
-            Volunteer* freeVolunteer(wareHouse.findFreeDriver(), currOrder.getDitance());
+            freeVolunteer = wareHouse.findFreeDriver(), currOrder->getDistance();
+            if(freeVolunteer == nullptr) break;
+
+            freeVolunteer->acceptOrder(*currOrder);
+            currOrder->setDriverId(freeVolunteer->getId());
+            currOrder->setStatus(OrderStatus::DELIVERING);
+            wareHouse.moveToInProcces(currOrder);
         default:
             break;
-        }
-        ;
-        freeCollector->acceptOrder(currOrder)
+        };
     }
+}
+
+void SimulateStep::phase2(WareHouse& wareHouse){
+    
 }
 
 
