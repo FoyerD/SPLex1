@@ -1,5 +1,12 @@
 {
     "files.associations": {
-        "vector": "cpp"
+        "vector": "cpp",
+        "*.tcc": "cpp",
+        "memory_resource": "cpp",
+        "type_traits": "cpp",
+        "iosfwd": "cpp",
+        "string": "cpp",
+        "fstream": "cpp",
+        "deque": "cpp"
     }
 }
