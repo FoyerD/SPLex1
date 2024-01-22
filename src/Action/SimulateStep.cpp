@@ -19,7 +19,8 @@ string SimulateStep::toString() const{
 
 
 /**
- * calles calles singleStep numOfSteps times
+ * calles singleStep numOfSteps times
+ * @param wareHouse - ref to the wareHouse to simulate on
 */
 void SimulateStep::act(WareHouse& wareHouse){
     for(int i = 0; i < numOfSteps;i++){
@@ -27,6 +28,11 @@ void SimulateStep::act(WareHouse& wareHouse){
     }
 }
 
+
+/**
+ * simply calles each of the 4 phases of a step in order
+ * @param wareHouse - ref to the wareHouse to simulate on
+*/
 void SimulateStep::singleStep(WareHouse& wareHouse){
     phase1(wareHouse);
     phase2(wareHouse);
@@ -34,7 +40,12 @@ void SimulateStep::singleStep(WareHouse& wareHouse){
     phase4(wareHouse);
 }
 
-
+/**
+ * Iterates on all pending orders,
+ * attempts to handle each one to a proper volunteer
+ * than asked the wareHouse to move the order to the proper vector
+ * @param wareHouse - ref to the wareHouse to simulate on
+*/
 void SimulateStep::phase1(WareHouse& wareHouse){
     Volunteer* freeVolunteer = nullptr;
     for(Order* currOrder : wareHouse.getPendingOrders()){
