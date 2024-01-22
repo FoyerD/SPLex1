@@ -39,11 +39,13 @@ class SimulateStep : public BaseAction {
 
     public:
         SimulateStep(int numOfSteps);
+        virtual ~SimulateStep();
         void act(WareHouse &wareHouse) override;
         std::string toString() const override;
         SimulateStep *clone() const override;
 
     private:
+        void singleStep(WareHouse& WareHouse);
         const int numOfSteps;
 };
 
