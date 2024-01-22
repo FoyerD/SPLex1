@@ -27,10 +27,8 @@ class Volunteer;
 #define BACKUP "backup"
 #define RESTORE "restore"
 #define DOES_NOT_EXIST -1
-#define CASE_DRIVER 5
-#define CASE_LDRIVER 6
-#define CASE_COLLECTOR 4
-#define CASE_LCOLLECTOR 5
+#define LDRIVER "limited_driver"
+#define LCOLLECTOR "limited_collector"
 // Warehouse responsible for Volunteers, Customers Actions, and Orders.
 extern WareHouse* backup;
 

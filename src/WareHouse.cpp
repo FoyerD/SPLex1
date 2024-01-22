@@ -284,30 +284,26 @@ void WareHouse::proccessConfigFile(const string &configFilePath){
             else if(currLine[2].compare(CIVILIAN) == 0){
                 customers.push_back(new CivilianCustomer(customerCounter, currLine[1], stoi(currLine[3]), stoi(currLine[4])));
             }
+            else{
+                return;
+            }
             customerCounter++;
         }
         else if(currLine[0].compare(VOLUNTEER) == 0){
             if(currLine[2].compare(COLLECTOR) == 0){
-                switch (currLine.size())
-                {
-                case CASE_COLLECTOR:
-                    volunteers.push_back(new CollectorVolunteer(volunteerCounter, currLine[1], stoi(currLine[3])));
-                    break;
-                case CASE_LCOLLECTOR:
-                    volunteers.push_back(new LimitedCollectorVolunteer(volunteerCounter, currLine[1], stoi(currLine[3]), stoi(currLine[4])));
-                    break;
-                }
+                volunteers.push_back(new CollectorVolunteer(volunteerCounter, currLine[1], stoi(currLine[3])));
+            }
+            else if(currLine[2].compare(LCOLLECTOR) == 0){
+                volunteers.push_back(new LimitedCollectorVolunteer(volunteerCounter, currLine[1], stoi(currLine[3]), stoi(currLine[4])));
             }
             else if(currLine[2].compare(DRIVER) == 0){
-                switch (currLine.size())
-                {
-                case CASE_DRIVER:
-                    volunteers.push_back(new CollectorVolunteer(volunteerCounter, currLine[1], stoi(currLine[3])));
-                    break;
-                case CASE_LDRIVER:
-                    volunteers.push_back(new LimitedCollectorVolunteer(volunteerCounter, currLine[1], stoi(currLine[3]), stoi(currLine[4])));
-                    break;
-                }
+                volunteers.push_back(new DriverVolunteer(volunteerCounter, currLine[1], stoi(currLine[3]), stoi(currLine[4])));
+            }
+            else if(currLine[2].compare(LDRIVER) == 0){
+                volunteers.push_back(new LimitedDriverVolunteer(volunteerCounter, currLine[1], stoi(currLine[3]), stoi(currLine[4]), stoi(currLine[5])));
+            }
+            else{
+                return;
             }
             volunteerCounter++;
         }
