@@ -6,7 +6,7 @@ using std::string;
 using std::vector;
 
 enum class ActionStatus{
-    COMPLETED, ERROR
+    COMPLETED, ERROR, ACTIVE
 };
 
 enum class CustomerType{
@@ -19,6 +19,7 @@ class Customer;
 class BaseAction{
     public:
         BaseAction();
+        virtual ~BaseAction();
         ActionStatus getStatus() const;
         virtual void act(WareHouse& wareHouse)=0;
         virtual string toString() const=0;
