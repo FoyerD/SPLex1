@@ -323,3 +323,17 @@ const vector<Order*>& WareHouse::getInProccesOrders() const{
 const vector<Order*>& WareHouse::getCompletedOrders() const{
     return completedOrders;
 }
+
+Volunteer* WareHouse::findFreeVolunteer(Order& orderToHandle){
+    for(auto& volunteer : volunteers){
+        if(volunteer->canTakeOrder(orderToHandle)){
+            return volunteer;
+        }
+    }
+    return nullptr;
+}
+
+void WareHouse::moveToInProcces(Order* orderToMove){
+    pendingOrders.erase(find(pendingOrders.begin(), pendingOrders.end(), orderToMove));
+    inProcessOrders.push_back(orderToMove);
+}
