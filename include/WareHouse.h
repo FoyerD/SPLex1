@@ -49,9 +49,9 @@ class WareHouse {
         Volunteer &getVolunteer(int volunteerId) const;
         Order &getOrder(int orderId) const;
         const vector<BaseAction*> &getActions() const;
-        vector<Order*>& getPendingOrders();
-        vector<Order*>& getInProccesOrders();
-        vector<Order*>& getCompletedOrders();
+        const vector<Order*>& getPendingOrders() const;
+        const vector<Order*>& getInProccesOrders() const;
+        const vector<Order*>& getCompletedOrders() const;
         int getOrdersNumber() const;
         void close();
         void open();
