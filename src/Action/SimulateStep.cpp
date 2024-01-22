@@ -52,15 +52,15 @@ void SimulateStep::phase1(WareHouse& wareHouse){
         switch (currOrder->getStatus())
         {
         case OrderStatus::PENDING:
-            freeVolunteer = wareHouse.findFreeCollector();//!TODO
+            freeVolunteer = wareHouse.findFreeVolunteer(*currOrder);//!TODO
             if(freeVolunteer == nullptr) break;
 
             freeVolunteer->acceptOrder(*currOrder);
             currOrder->setCollectorId(freeVolunteer->getId());
             currOrder->setStatus(OrderStatus::COLLECTING);
-            wareHouse.moveToInProcces(currOrder);//!TODO
+            wareHouse.moveToInProcces(*currOrder);//!TODO
         case OrderStatus::COLLECTING:
-            freeVolunteer = wareHouse.findFreeDriver(), currOrder->getDistance();
+            freeVolunteer = wareHouse.findFreeVolunteer(*currOrder);//!TODO
             if(freeVolunteer == nullptr) break;
 
             freeVolunteer->acceptOrder(*currOrder);
