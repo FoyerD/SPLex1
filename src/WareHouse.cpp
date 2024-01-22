@@ -62,6 +62,7 @@ Customer &WareHouse::getCustomer(int customerId) const{
     if(customerId < 0 || customerId > customerCounter){
         throw invalid_argument(string("no customer with id: " + to_string(customerId)));
     }
+    Customer* customer = &(this->getCustomer(customerId));
     for (auto & customer : customers) {
         if(customer->getId() == customerId) return *customer;
     }
