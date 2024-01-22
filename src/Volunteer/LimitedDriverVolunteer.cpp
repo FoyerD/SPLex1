@@ -46,7 +46,7 @@ void LimitedDriverVolunteer::acceptOrder(const Order& order){
 }
 
 string LimitedDriverVolunteer::toString() const{
-    string strDistanceLeft =  getDistanceLeft() == 0 ? "None" : std::to_string(getTimeLeft());
+    string strDistanceLeft =  getDistanceLeft() == 0 ? "None" : std::to_string(getDistanceLeft());
     return "VolunteerID: " + std::to_string(getId()) + "\n"
            +"isBusy: " + std::to_string(isBusy()) + "\n"
            +"OrderID: " + std::to_string(activeOrderId) + "\n"
