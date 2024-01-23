@@ -6,6 +6,7 @@
  */
 WareHouse::WareHouse(const string &configFilePath): isOpen(false), customerCounter(0), volunteerCounter(0), parser(){
     proccessConfigFile(configFilePath);
+    ;
 }
 
 //this function runs a loop that gets the user input and acts accordingly
@@ -83,8 +84,7 @@ void WareHouse::addAction(BaseAction* action){
  */
 Customer &WareHouse::getCustomer(int customerId) const{
     if(customerId < 0 || customerId > customerCounter){
-        Customer* fake = new CivilianCustomer(DOES_NOT_EXIST, "", DOES_NOT_EXIST, DOES_NOT_EXIST);
-        return *fake;
+        return *demiCust;
     }
     for (auto & customer : customers) {
         if(customer->getId() == customerId) return *customer;
@@ -101,8 +101,7 @@ Volunteer &WareHouse::getVolunteer(int volunteerId) const{
     for (auto & volunteer : volunteers) {
         if(volunteer->getId() == volunteerId) return *volunteer;
     }
-    Volunteer* fake = new CollectorVolunteer(DOES_NOT_EXIST, "", DOES_NOT_EXIST);
-    return *fake;
+    return *demiVol;
 }
 
 /**
@@ -121,8 +120,7 @@ Order &WareHouse::getOrder(int orderId) const{
     for (auto & order : completedOrders) {
         if(order->getId() == orderId) return *order;
     }
-    Order* fake = new Order(DOES_NOT_EXIST, DOES_NOT_EXIST, DOES_NOT_EXIST);
-    return *fake;
+    return demiOrder;
 }
 
 const vector<BaseAction*> &WareHouse::getActions() const{
@@ -295,6 +293,8 @@ WareHouse::~WareHouse(){
     customers.clear();
     volunteers.clear();
     actionsLog.clear();
+    delete demiCust;
+    delete demiVol;
 }
 
 /**
