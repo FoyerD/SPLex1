@@ -79,11 +79,12 @@ void WareHouse::addAction(BaseAction* action){
  * @brief - this functions gets a customer with the id, customerId
  * 
  * @param customerId - the id of the customer we want to get
- * @return - a reference to the customer if found, else throw an exception
+ * @return - a reference to the customer if found, else returns a demi customer (needs to be deleted by caller)
  */
 Customer &WareHouse::getCustomer(int customerId) const{
     if(customerId < 0 || customerId > customerCounter){
-        throw invalid_argument(string("no customer with id: " + to_string(customerId)));
+        Customer* fake = new CivilianCustomer(DOES_NOT_EXIST, "", DOES_NOT_EXIST, DOES_NOT_EXIST);
+        return *fake;
     }
     for (auto & customer : customers) {
         if(customer->getId() == customerId) return *customer;
@@ -94,20 +95,21 @@ Customer &WareHouse::getCustomer(int customerId) const{
  * @brief - this function gets a volunteer with the id, volunteerId
  * 
  * @param volunteerId - the id of the volunteer we want to get 
- * @return - a reference to the volunteer if found, elsethrow a exception
+ * @return - a reference to the volunteer if found, else returns a demi volunteer (needs to be deleted by caller)
  */
 Volunteer &WareHouse::getVolunteer(int volunteerId) const{
     for (auto & volunteer : volunteers) {
         if(volunteer->getId() == volunteerId) return *volunteer;
     }
-    throw invalid_argument(string("no volunteer with id: " + to_string(volunteerId)));
+    Volunteer* fake = new CollectorVolunteer(DOES_NOT_EXIST, "", DOES_NOT_EXIST);
+    return *fake;
 }
 
 /**
  * @brief - this function gets an order with the id, orderId
  * 
  * @param orderId - the id of the order we want to get
- * @return - a reference to the order if found, else throw an exception
+ * @return - a reference to the order if found, else returns a demi Order (needs to be deleted by caller)
  */
 Order &WareHouse::getOrder(int orderId) const{
     for (auto & order : pendingOrders) {
@@ -119,7 +121,8 @@ Order &WareHouse::getOrder(int orderId) const{
     for (auto & order : completedOrders) {
         if(order->getId() == orderId) return *order;
     }
-    throw invalid_argument(string("no Order with id: " + to_string(orderId)));
+    Order* fake = new Order(DOES_NOT_EXIST, DOES_NOT_EXIST, DOES_NOT_EXIST);
+    return *fake;
 }
 
 const vector<BaseAction*> &WareHouse::getActions() const{
