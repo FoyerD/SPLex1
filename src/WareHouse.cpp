@@ -260,6 +260,48 @@ WareHouse& WareHouse::operator=(WareHouse&& other){
  * 
  */
 WareHouse::~WareHouse(){
+    clear();
+    delete demiCust;
+    delete demiVol;
+}
+
+/**
+ * @brief - assignment operator
+ * 
+ * @param other - a reference to a WareHouse object
+ * @return - a reference to this after changing it's values to other values 
+ */
+WareHouse& WareHouse::operator=(const WareHouse& other){
+    if(&other != this){
+        isOpen = other.isOpen;
+        customerCounter = other.customerCounter;
+        volunteerCounter = other.volunteerCounter;
+        parser = other.parser;
+        orderCounter = other.orderCounter;
+        clear();
+        for (auto & order : other.pendingOrders) {
+            pendingOrders.push_back(new Order(*order));
+        }
+        for (auto & order : other.inProcessOrders) {
+            inProcessOrders.push_back(new Order(*order));
+        }
+        for (auto & order : other.completedOrders) {
+            completedOrders.push_back(new Order(*order));
+        }
+        for (auto & customer : other.customers) {
+            customers.push_back(customer->clone());
+        }
+        for (auto & volunteer : other.volunteers) {
+            volunteers.push_back(volunteer->clone());
+        }
+        for (auto & action : other.actionsLog) {
+            actionsLog.push_back(action->clone());
+        }
+    }
+    return *this;
+}
+
+void WareHouse::clear(){
     for (auto & order : pendingOrders) {
          cout << (*order).printAfterClose() << endl;
          delete order;
@@ -293,44 +335,6 @@ WareHouse::~WareHouse(){
     customers.clear();
     volunteers.clear();
     actionsLog.clear();
-    delete demiCust;
-    delete demiVol;
-}
-
-/**
- * @brief - assignment operator
- * 
- * @param other - a reference to a WareHouse object
- * @return - a reference to this after changing it's values to other values 
- */
-WareHouse& WareHouse::operator=(const WareHouse& other){
-    if(&other != this){
-        isOpen = other.isOpen;
-        customerCounter = other.customerCounter;
-        volunteerCounter = other.volunteerCounter;
-        parser = other.parser;
-        orderCounter = other.orderCounter;
-        WareHouse::~WareHouse();
-        for (auto & order : other.pendingOrders) {
-            pendingOrders.push_back(new Order(*order));
-        }
-        for (auto & order : other.inProcessOrders) {
-            inProcessOrders.push_back(new Order(*order));
-        }
-        for (auto & order : other.completedOrders) {
-            completedOrders.push_back(new Order(*order));
-        }
-        for (auto & customer : other.customers) {
-            customers.push_back(customer->clone());
-        }
-        for (auto & volunteer : other.volunteers) {
-            volunteers.push_back(volunteer->clone());
-        }
-        for (auto & action : other.actionsLog) {
-            actionsLog.push_back(action->clone());
-        }
-    }
-    return *this;
 }
 
 /**

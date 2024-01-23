@@ -30,9 +30,9 @@ class Volunteer;
 #define LDRIVER "limited_driver"
 #define LCOLLECTOR "limited_collector"
 // Warehouse responsible for Volunteers, Customers Actions, and Orders.
-Customer* demiCust = new CivilianCustomer(DOES_NOT_EXIST, "", DOES_NOT_EXIST, DOES_NOT_EXIST);;
-Volunteer* demiVol = new CollectorVolunteer(DOES_NOT_EXIST, "", DOES_NOT_EXIST);
-Order demiOrder(DOES_NOT_EXIST, DOES_NOT_EXIST, DOES_NOT_EXIST);
+static Customer* demiCust = new CivilianCustomer(DOES_NOT_EXIST, "", DOES_NOT_EXIST, DOES_NOT_EXIST);;
+static Volunteer* demiVol = new CollectorVolunteer(DOES_NOT_EXIST, "", DOES_NOT_EXIST);
+static Order demiOrder(DOES_NOT_EXIST, DOES_NOT_EXIST, DOES_NOT_EXIST);
 extern WareHouse* backup;
 
 class WareHouse {
@@ -76,4 +76,5 @@ class WareHouse {
         Parser parser;
         void proccessConfigFile(const string &configFilePath);
         int orderCounter;
+        void clear();
 };
