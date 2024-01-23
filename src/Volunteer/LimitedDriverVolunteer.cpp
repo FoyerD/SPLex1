@@ -27,9 +27,7 @@ bool LimitedDriverVolunteer::hasOrdersLeft() const{
 }
 
 bool LimitedDriverVolunteer::canTakeOrder(const Order& order) const{
-    return !isBusy() &&
-            order.getStatus() == OrderStatus::COLLECTING &&
-            getMaxDistance() < order.getDistance() &&
+    return DriverVolunteer::canTakeOrder(order) &&
             hasOrdersLeft();
 }
 
