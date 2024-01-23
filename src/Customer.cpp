@@ -41,7 +41,7 @@ bool Customer::canMakeOrder() const{
 /**
  * @returns - all orders id's in a vector
 */
-const vector<int> &Customer::getOrders() const{
+const vector<int> &Customer::getOrdersIds() const{
     return ordersId;
 }
 
@@ -63,7 +63,7 @@ int Customer::addOrder(int orderId){
  * @param locationDistance - the distance from the warehouse to th customer
  * @param maxOrders - the max number of orders the client can make
 */
-SoldierCustomer::SoldierCustomer(int id, string name, int locationDistance, int maxOrders): Customer(id,name,locationDistance,maxOrders){}
+SoldierCustomer::SoldierCustomer(int id, const string &name, int locationDistance, int maxOrders): Customer(id,name,locationDistance,maxOrders){}
 
 /**
  * @returns - a SoldierCustomer object that is a clone to the current SoldierCustomer
@@ -79,7 +79,7 @@ SoldierCustomer* SoldierCustomer::clone() const {
  * @param locationDistance - the distance from the warehouse to th customer
  * @param maxOrders - the max number of orders the client can make
 */
-CivilianCustomer::CivilianCustomer(int id, string name, int locationDistance, int maxOrders): Customer(id,name,locationDistance,maxOrders){}
+CivilianCustomer::CivilianCustomer(int id, const string &name, int locationDistance, int maxOrders): Customer(id,name,locationDistance,maxOrders){}
 
 /**
  * @returns - a CivilianCustomer object that is a clone to the current CivilianCustomer
