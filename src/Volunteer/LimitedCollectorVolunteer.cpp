@@ -28,8 +28,7 @@ bool LimitedCollectorVolunteer::hasOrdersLeft() const{
 */
 bool LimitedCollectorVolunteer::canTakeOrder(const Order& order) const{
     return hasOrdersLeft() &&
-            order.getStatus() == OrderStatus::PENDING &&
-            !isBusy();
+            CollectorVolunteer::canTakeOrder(order);
 }
 
 /**
