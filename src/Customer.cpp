@@ -7,7 +7,7 @@
  * @param locationDistance - the distance from the warehouse to th customer
  * @param maxOrders - the max number of orders the client can make
 */
-Customer::Customer(int id, const string &name, int locationDistance, int maxOrders): id(id), name(name), locationDistance(locationDistance), maxOrders(maxOrders){}
+Customer::Customer(int id, const string &name, int locationDistance, int maxOrders): id(id), name(name), locationDistance(locationDistance), maxOrders(maxOrders), ordersId(){}
 
 
 const string &Customer::getName() const{

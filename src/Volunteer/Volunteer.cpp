@@ -5,10 +5,10 @@
  * @param name - name of the volunteer
 */
 Volunteer::Volunteer(int id, const string& name):
-                    id(id),
-                    name(name),
                     completedOrderId(NO_ORDER),
-                    activeOrderId(NO_ORDER){}
+                    activeOrderId(NO_ORDER),
+                    id(id),
+                    name(name){}
 Volunteer::~Volunteer(){}
 int Volunteer::getId() const{return id;}
 const string& Volunteer::getName() const{return name;}

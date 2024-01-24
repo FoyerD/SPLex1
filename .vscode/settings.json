@@ -48,7 +48,7 @@
     "makefile.launchConfigurations": [
         {
             "cwd": "/workspaces/SPLex1/bin",
-            "binaryPath": "/workspaces/SPLex1/bin/program",
+            "binaryPath": "/workspaces/SPLex1/bin/warehouse",
             "binaryArgs": []
         }
     ]

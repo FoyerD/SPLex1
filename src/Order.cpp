@@ -7,7 +7,7 @@
  * @param customerId - the id of the customer that made the order
  * @param distance - the distance of the customer from the warehouse
  */
-Order::Order(int id, int customerId, int distance): id(id), customerId(customerId), distance(distance), collectorId(NO_VOLUNTEER), driverId(NO_VOLUNTEER), status(OrderStatus::PENDING){}
+Order::Order(int id, int customerId, int distance): id(id), customerId(customerId), distance(distance), status(OrderStatus::PENDING), collectorId(NO_VOLUNTEER), driverId(NO_VOLUNTEER){}
 
 int Order::getId() const
 {

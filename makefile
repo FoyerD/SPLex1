@@ -1,7 +1,7 @@
 all: clean compile link
 
 link:
-	g++ -o bin/program bin/main.o bin/Customer.o bin/Order.o bin/CollectorVolunteer.o
+	g++ -o bin/warehouse bin/main.o bin/Customer.o bin/Order.o bin/CollectorVolunteer.o
 	bin/DriverVolunteer.o bin/LimitedCollectorVolunteer.o bin/LimitedDriverVolunteer.o bin/Volunteer.o
 	#bin/WareHouse.o bin/AddOrder.o bin/BaseAction.o bin/SimulateStep.o bin/AddCustomer.o bin/PrintOrderStatus.o
 	#bin/PrintCustomerStatus.o bin/PrintVolunteerStatus.o bin/PrintActionsLog.o bin/Close.o
