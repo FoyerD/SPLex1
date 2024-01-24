@@ -21,3 +21,11 @@ int Volunteer::getCompletedOrderId() const{return completedOrderId;}
 bool Volunteer::isBusy() const{
     return activeOrderId != NO_ORDER;
 }
+
+/**
+ * sets activeOrderId to be NO_ORDER,
+ * signaling the complete order was taken
+*/
+void Volunteer::completeOrder(){
+    activeOrderId = NO_ORDER;
+}
