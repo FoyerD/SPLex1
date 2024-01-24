@@ -40,7 +40,6 @@ bool LimitedDriverVolunteer::canTakeOrder(const Order& order) const{
 void LimitedDriverVolunteer::acceptOrder(const Order& order){
     if(!canTakeOrder(order)) return;
     DriverVolunteer::acceptOrder(order);
-    ordersLeft = --ordersLeft < 0 ? 0 : ordersLeft;
 }
 
 string LimitedDriverVolunteer::toString() const{
@@ -50,4 +49,14 @@ string LimitedDriverVolunteer::toString() const{
            +"OrderID: " + std::to_string(activeOrderId) + "\n"
            +"timeLeft: " + strDistanceLeft + "\n"
            +"ordersLeft: " + std::to_string(ordersLeft);
+}
+
+/**
+ * sets activeOrderId to be NO_ORDER,
+ * signaling the complete order was taken
+ * decreases ordersLeft by 1
+*/
+void LimitedDriverVolunteer::completeOrder(){
+    Volunteer::completeOrder();
+    ordersLeft = --ordersLeft < 0 ? 0 : ordersLeft;
 }

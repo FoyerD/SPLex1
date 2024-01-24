@@ -57,3 +57,13 @@ string LimitedCollectorVolunteer::toString() const{
            +"timeLeft: " + strTimeLeft + "\n"
            +"ordersLeft: " + std::to_string(ordersLeft);
 }
+
+/**
+ * sets activeOrderId to be NO_ORDER,
+ * signaling the complete order was taken
+ * decreases ordersLeft by 1
+*/
+void LimitedCollectorVolunteer::completeOrder(){
+    Volunteer::completeOrder();
+    ordersLeft = --ordersLeft < 0 ? 0 : ordersLeft;
+}
