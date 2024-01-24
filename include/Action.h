@@ -6,13 +6,18 @@ using std::string;
 using std::vector;
 
 enum class ActionStatus{
-    COMPLETED, ERROR, ACTIVE
+    COMPLETED, ERROR
 };
 
 enum class CustomerType{
     Soldier, Civilian
 };
 
+std::vector<string> typeToString = {"Soldier", "Civilian"};
+static CustomerType stringToType(string str){
+    if(str.compare("soldier") == 0) return CustomerType::Soldier;
+    return CustomerType::Civilian;
+}
 
 class Customer;
 

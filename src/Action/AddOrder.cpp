@@ -1,6 +1,7 @@
 #include "Action.h"
 
 AddOrder::AddOrder(int id):
+                    BaseAction::BaseAction()m
                     customerId(id){}
 AddOrder::~AddOrder(){}
 
