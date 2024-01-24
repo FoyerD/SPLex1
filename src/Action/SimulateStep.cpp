@@ -42,8 +42,8 @@ void SimulateStep::singleStep(WareHouse& wareHouse){
 
 /**
  * Iterates on all pending orders,
- * attempts to handle each one to a proper volunteer
- * than asked the wareHouse to move the order to the proper vector
+ * attempts to hand each one to a proper volunteer
+ * than asked the wareHouse to move the orders handed to the proper vector
  * @param wareHouse - ref to the wareHouse to simulate on
 */
 void SimulateStep::phase1(WareHouse& wareHouse){
@@ -61,9 +61,11 @@ void SimulateStep::phase1(WareHouse& wareHouse){
             case OrderStatus::PENDING:
                 currOrder->setCollectorId(freeVolunteer->getId());
                 currOrder->setStatus(OrderStatus::COLLECTING);
+                break;
             case OrderStatus::COLLECTING:
                 currOrder->setDriverId(freeVolunteer->getId());
                 currOrder->setStatus(OrderStatus::DELIVERING);
+                break;
             default:
                 break;
         };
@@ -76,18 +78,49 @@ void SimulateStep::phase1(WareHouse& wareHouse){
     }
 }
 
+/**
+ * iterates over all volunteers, performs one step for each(see volunteer for step)
+ * @param wareHouse - ref to the wareHouse to simulate on
+*/
 void SimulateStep::phase2(WareHouse& wareHouse){
     for(Volunteer* currVolunteer : wareHouse.getVolunteers()){//!TODO
         currVolunteer->step();
     }
 }
 
+/**
+ * iterates over all volunteers, for each check if he has completed order
+ * if he does, move collected order to pending, delivered order to completed and change status
+ * if volunteer is limited decreas the ordersLeft field
+ * @param wareHouse - ref to the wareHouse to simulate on
+*/
 void SimulateStep::phase3(WareHouse& wareHouse){
+    int currOrderID = 0;
     for(Volunteer* currVolunteer : wareHouse.getVolunteers()){//!TODO
         if(currVolunteer->getCompletedOrderId() == NO_ORDER) continue;
-        Order& currOrder(wareHouse.getOrder(currVolunteer->getCompletedOrderId()));
 
-        currVolunteer->completeOrder();
+        currOrderID = currVolunteer->completeOrder();
+        Order& currOrder(wareHouse.getOrder(currOrderID));
+
+        if(currOrder.getStatus() == OrderStatus::COLLECTING){
+            wareHouse.moveToPending(&currOrder);
+        }
+
+        if(currOrder.getStatus() == OrderStatus::DELIVERING){
+            currOrder.setStatus(OrderStatus::COMPLETED);
+                wareHouse.moveToCompleted(&currOrder);
+        }
+    }
+}
+
+/**
+ * iterates over all volunteers and tell warehouse
+ * to remove each one that have no orders left
+ * @param wareHouse - ref to the wareHouse to simulate on
+*/
+void SimulateStep::phase4(WareHouse& wareHouse){
+    for(Volunteer* currVolunteer : wareHouse.getVolunteers()){
+        if(!currVolunteer->hasOrdersLeft()) wareHouse.removeVolunteer(currVolunteer);
     }
 }
 
