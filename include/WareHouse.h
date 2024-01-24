@@ -27,11 +27,12 @@ class Volunteer;
 #define BACKUP "backup"
 #define RESTORE "restore"
 #define DOES_NOT_EXIST -1
-#define CASE_DRIVER 5
-#define CASE_LDRIVER 6
-#define CASE_COLLECTOR 4
-#define CASE_LCOLLECTOR 5
+#define LDRIVER "limited_driver"
+#define LCOLLECTOR "limited_collector"
 // Warehouse responsible for Volunteers, Customers Actions, and Orders.
+static Customer* demiCust = new CivilianCustomer(DOES_NOT_EXIST, "", DOES_NOT_EXIST, DOES_NOT_EXIST);;
+static Volunteer* demiVol = new CollectorVolunteer(DOES_NOT_EXIST, "", DOES_NOT_EXIST);
+static Order demiOrder(DOES_NOT_EXIST, DOES_NOT_EXIST, DOES_NOT_EXIST);
 extern WareHouse* backup;
 
 class WareHouse {
@@ -49,15 +50,19 @@ class WareHouse {
         Volunteer &getVolunteer(int volunteerId) const;
         Order &getOrder(int orderId) const;
         const vector<BaseAction*> &getActions() const;
-        vector<Order*>& getPendingOrders();
-        vector<Order*>& getInProccesOrders();
-        vector<Order*>& getCompletedOrders();
+        const vector<Order*>& getPendingOrders() const;
+        const vector<Order*>& getInProccesOrders() const;
+        const vector<Order*>& getCompletedOrders() const;
         int getOrdersNumber() const;
         void close();
         void open();
         ~WareHouse();
         WareHouse& operator=(const WareHouse& other);
         WareHouse& operator=(WareHouse&& other);
+        Volunteer* findFreeVolunteer(Order& orderToHandle);
+        void moveToInProcess(Order* orderToMove);
+        void moveToCompleted(Order* orderToMove);
+        void moveToPending(Order* orderToMove);
     private:
         bool isOpen;
         vector<BaseAction*> actionsLog;
@@ -71,4 +76,5 @@ class WareHouse {
         Parser parser;
         void proccessConfigFile(const string &configFilePath);
         int orderCounter;
+        void clear();
 };
