@@ -55,8 +55,9 @@ string LimitedDriverVolunteer::toString() const{
  * sets activeOrderId to be NO_ORDER,
  * signaling the complete order was taken
  * decreases ordersLeft by 1
+ * @return - ID of the completed order
 */
-void LimitedDriverVolunteer::completeOrder(){
-    Volunteer::completeOrder();
+int LimitedDriverVolunteer::completeOrder(){
     ordersLeft = --ordersLeft < 0 ? 0 : ordersLeft;
+    return Volunteer::completeOrder();
 }
