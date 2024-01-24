@@ -31,4 +31,5 @@ void AddCustomer::act(WareHouse& wareHouse){
     default:
         break;
     }
+    complete();
 }

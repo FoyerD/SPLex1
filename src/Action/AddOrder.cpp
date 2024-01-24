@@ -1,7 +1,7 @@
 #include "Action.h"
 
 AddOrder::AddOrder(int id):
-                    BaseAction::BaseAction()m
+                    BaseAction::BaseAction(),
                     customerId(id){}
 AddOrder::~AddOrder(){}
 
@@ -17,4 +17,5 @@ void AddOrder::act(WareHouse& wareHouse){
     }
 
     wareHouse.addOrder(new Order(wareHouse.getOrdersNumber(), customerId, currCustomer.getCustomerDistance()));
+    complete();
 }

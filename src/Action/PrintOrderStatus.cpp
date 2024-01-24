@@ -18,4 +18,5 @@ void PrintOrderStatus::act(WareHouse& wareHouse){
     Order& toPrint = wareHouse.getOrder(orderId);
     if(toPrint.getId() == -1) error("Order doesn't exist");
     std::cout << toPrint.printStatus();
+    complete();
 }
