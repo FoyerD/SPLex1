@@ -84,7 +84,7 @@ void SimulateStep::phase1(WareHouse& wareHouse) const{
  * @param wareHouse - ref to the wareHouse to simulate on
 */
 void SimulateStep::phase2(WareHouse& wareHouse) const{
-    for(Volunteer* currVolunteer : wareHouse.getVolunteers()){//!TODO
+    for(Volunteer* currVolunteer : wareHouse.getVolunteers()){
         currVolunteer->step();
     }
 }
@@ -97,7 +97,7 @@ void SimulateStep::phase2(WareHouse& wareHouse) const{
 */
 void SimulateStep::phase3(WareHouse& wareHouse) const{
     int currOrderID = 0;
-    for(Volunteer* currVolunteer : wareHouse.getVolunteers()){//!TODO
+    for(Volunteer* currVolunteer : wareHouse.getVolunteers()){
         if(currVolunteer->getCompletedOrderId() == NO_ORDER) continue;
 
         currOrderID = currVolunteer->completeOrder();
