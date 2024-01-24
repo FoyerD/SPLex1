@@ -1,0 +1,21 @@
+#include "Action.h"
+
+PrintCustomerStatus::PrintCustomerStatus(int id):
+                                    BaseAction::BaseAction(),
+                                    customerId(id){}
+PrintCustomerStatus::~PrintCustomerStatus(){}
+
+PrintCustomerStatus* PrintCustomerStatus::clone() const{
+    return new PrintCustomerStatus(*this);
+}
+
+string PrintCustomerStatus::toString() const{
+    return "customerStatus " + std::to_string(customerId);
+}
+
+
+void PrintCustomerStatus::act(WareHouse& wareHouse){
+    Customer* toPrint = &wareHouse.getCustomer(customerId);
+    if(toPrint->getId() == -1) error("Customer doesn't exist");
+    std::cout << toPrint->printStatus();//!TODO
+}
