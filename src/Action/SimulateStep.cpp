@@ -26,6 +26,7 @@ void SimulateStep::act(WareHouse& wareHouse){
     for(int i = 0; i < numOfSteps;i++){
         singleStep(wareHouse);
     }
+    this->complete();
 }
 
 
@@ -123,4 +124,3 @@ void SimulateStep::phase4(WareHouse& wareHouse) const{
         if(!currVolunteer->hasOrdersLeft()) wareHouse.removeVolunteer(currVolunteer);
     }
 }
-
