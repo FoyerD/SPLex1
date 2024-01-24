@@ -46,11 +46,11 @@ class SimulateStep : public BaseAction {
 
     private:
         const int numOfSteps;
-        void singleStep(WareHouse& wareHouse);
-        void phase1(WareHouse& wareHouse);
-        void phase2(WareHouse& wareHouse);
-        void phase3(WareHouse& wareHouse);
-        void phase4(WareHouse& wareHouse);
+        void singleStep(WareHouse& wareHouse) const;
+        void phase1(WareHouse& wareHouse) const;
+        void phase2(WareHouse& wareHouse) const;
+        void phase3(WareHouse& wareHouse) const;
+        void phase4(WareHouse& wareHouse) const;
 };
 
 class AddOrder : public BaseAction {
@@ -59,6 +59,7 @@ class AddOrder : public BaseAction {
         void act(WareHouse &wareHouse) override;
         string toString() const override;
         AddOrder *clone() const override;
+        ~AddOrder();
     private:
         const int customerId;
 };

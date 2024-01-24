@@ -2,7 +2,7 @@
 
 
 /**
- * @param numOfSteps - number of steps te action simulates
+ * @param numOfSteps - number of steps the action simulates
 */
 SimulateStep::SimulateStep(int numOfSteps):
                         BaseAction::BaseAction(),
@@ -33,7 +33,7 @@ void SimulateStep::act(WareHouse& wareHouse){
  * simply calles each of the 4 phases of a step in order
  * @param wareHouse - ref to the wareHouse to simulate on
 */
-void SimulateStep::singleStep(WareHouse& wareHouse){
+void SimulateStep::singleStep(WareHouse& wareHouse) const{
     phase1(wareHouse);
     phase2(wareHouse);
     phase3(wareHouse);
@@ -46,7 +46,7 @@ void SimulateStep::singleStep(WareHouse& wareHouse){
  * than asked the wareHouse to move the orders handed to the proper vector
  * @param wareHouse - ref to the wareHouse to simulate on
 */
-void SimulateStep::phase1(WareHouse& wareHouse){
+void SimulateStep::phase1(WareHouse& wareHouse) const{
     Volunteer* freeVolunteer = nullptr;
     vector<Order*> ordersToMove;
 
@@ -82,7 +82,7 @@ void SimulateStep::phase1(WareHouse& wareHouse){
  * iterates over all volunteers, performs one step for each(see volunteer for step)
  * @param wareHouse - ref to the wareHouse to simulate on
 */
-void SimulateStep::phase2(WareHouse& wareHouse){
+void SimulateStep::phase2(WareHouse& wareHouse) const{
     for(Volunteer* currVolunteer : wareHouse.getVolunteers()){//!TODO
         currVolunteer->step();
     }
@@ -94,7 +94,7 @@ void SimulateStep::phase2(WareHouse& wareHouse){
  * if volunteer is limited decreas the ordersLeft field
  * @param wareHouse - ref to the wareHouse to simulate on
 */
-void SimulateStep::phase3(WareHouse& wareHouse){
+void SimulateStep::phase3(WareHouse& wareHouse) const{
     int currOrderID = 0;
     for(Volunteer* currVolunteer : wareHouse.getVolunteers()){//!TODO
         if(currVolunteer->getCompletedOrderId() == NO_ORDER) continue;
@@ -118,7 +118,7 @@ void SimulateStep::phase3(WareHouse& wareHouse){
  * to remove each one that have no orders left
  * @param wareHouse - ref to the wareHouse to simulate on
 */
-void SimulateStep::phase4(WareHouse& wareHouse){
+void SimulateStep::phase4(WareHouse& wareHouse) const{
     for(Volunteer* currVolunteer : wareHouse.getVolunteers()){
         if(!currVolunteer->hasOrdersLeft()) wareHouse.removeVolunteer(currVolunteer);
     }
