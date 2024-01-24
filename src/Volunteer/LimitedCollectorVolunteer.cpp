@@ -62,8 +62,9 @@ string LimitedCollectorVolunteer::toString() const{
  * sets activeOrderId to be NO_ORDER,
  * signaling the complete order was taken
  * decreases ordersLeft by 1
+ * @return - ID of the completed order
 */
-void LimitedCollectorVolunteer::completeOrder(){
-    Volunteer::completeOrder();
+int LimitedCollectorVolunteer::completeOrder(){
     ordersLeft = --ordersLeft < 0 ? 0 : ordersLeft;
+    return Volunteer::completeOrder();
 }

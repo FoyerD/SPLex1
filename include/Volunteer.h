@@ -15,7 +15,7 @@ class Volunteer {
         int getActiveOrderId() const;
         int getCompletedOrderId() const;
         bool isBusy() const; // Signal whether the volunteer is currently processing an order    
-        virtual void completeOrder();
+        virtual int completeOrder();
         virtual bool hasOrdersLeft() const = 0; // Signal whether the volunteer didn't reach orders limit,Always true for CollectorVolunteer and DriverVolunteer
         virtual bool canTakeOrder(const Order &order) const = 0; // Signal if the volunteer can take the order.      
         virtual void acceptOrder(const Order &order) = 0; // Prepare for new order(Reset activeOrderId,TimeLeft,DistanceLeft,OrdersLeft depends on the volunteer type)
@@ -65,7 +65,7 @@ class LimitedCollectorVolunteer: public CollectorVolunteer {
         bool hasOrdersLeft() const override;
         bool canTakeOrder(const Order &order) const override;
         void acceptOrder(const Order &order) override;
-        void completeOrder();
+        int completeOrder();
 
         int getMaxOrders() const;
         int getNumOrdersLeft() const;
@@ -109,7 +109,7 @@ class LimitedDriverVolunteer: public DriverVolunteer {
         bool hasOrdersLeft() const override;
         bool canTakeOrder(const Order &order) const override; // Signal if the volunteer is not busy, the order is within the maxDistance.
         void acceptOrder(const Order &order) override; // Assign distanceLeft to order's distance and decrease ordersLeft
-        void completeOrder();
+        int completeOrder();
         string toString() const override;
 
     private:
