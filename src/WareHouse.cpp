@@ -4,9 +4,8 @@
  * 
  * @param configFilePath - the path to the configuration file given by the user
  */
-WareHouse::WareHouse(const string &configFilePath): isOpen(false), customerCounter(0), volunteerCounter(0), parser(){
+WareHouse::WareHouse(const string &configFilePath): isOpen(false), customerCounter(0), volunteerCounter(0), parser(), demiCust(new CivilianCustomer(DOES_NOT_EXIST, "", DOES_NOT_EXIST, DOES_NOT_EXIST)), demiVol(new CollectorVolunteer(DOES_NOT_EXIST, "", DOES_NOT_EXIST)), demiOrder(new Order(DOES_NOT_EXIST, DOES_NOT_EXIST, DOES_NOT_EXIST)){
     proccessConfigFile(configFilePath);
-    ;
 }
 
 //this function runs a loop that gets the user input and acts accordingly
@@ -120,7 +119,7 @@ Order &WareHouse::getOrder(int orderId) const{
     for (auto & order : completedOrders) {
         if(order->getId() == orderId) return *order;
     }
-    return demiOrder;
+    return *demiOrder;
 }
 
 const vector<BaseAction*> &WareHouse::getActions() const{
@@ -154,7 +153,7 @@ int WareHouse::getOrdersNumber() const{
  * @param otherWareHouse - a reference to a warehouse object
  */
 WareHouse::WareHouse(const WareHouse& otherWareHouse): isOpen(otherWareHouse.isOpen), customerCounter(otherWareHouse.customerCounter),
-volunteerCounter(otherWareHouse.volunteerCounter), parser(otherWareHouse.parser), orderCounter(otherWareHouse.orderCounter){
+volunteerCounter(otherWareHouse.volunteerCounter), parser(otherWareHouse.parser), orderCounter(otherWareHouse.orderCounter), demiCust(new CivilianCustomer(DOES_NOT_EXIST, "", DOES_NOT_EXIST, DOES_NOT_EXIST)), demiVol(new CollectorVolunteer(DOES_NOT_EXIST, "", DOES_NOT_EXIST)), demiOrder(new Order(DOES_NOT_EXIST, DOES_NOT_EXIST, DOES_NOT_EXIST)){
     for(auto& action: otherWareHouse.actionsLog){
         actionsLog.push_back(action->clone());
     }
@@ -183,7 +182,8 @@ volunteerCounter(otherWareHouse.volunteerCounter), parser(otherWareHouse.parser)
 WareHouse::WareHouse(WareHouse&& otherWareHouse): isOpen(otherWareHouse.isOpen), customerCounter(otherWareHouse.customerCounter),
 volunteerCounter(otherWareHouse.volunteerCounter), parser(otherWareHouse.parser), orderCounter(otherWareHouse.orderCounter),
 pendingOrders(otherWareHouse.pendingOrders), inProcessOrders(otherWareHouse.inProcessOrders), completedOrders(otherWareHouse.completedOrders),
-customers(otherWareHouse.customers), volunteers(otherWareHouse.volunteers), actionsLog(otherWareHouse.actionsLog){
+customers(otherWareHouse.customers), volunteers(otherWareHouse.volunteers), actionsLog(otherWareHouse.actionsLog),
+demiCust(otherWareHouse.demiCust), demiVol(otherWareHouse.demiVol), demiOrder(otherWareHouse.demiOrder){
     for (auto & order : otherWareHouse.pendingOrders) {
          order = nullptr;
     }
@@ -202,6 +202,9 @@ customers(otherWareHouse.customers), volunteers(otherWareHouse.volunteers), acti
     for (auto & action : otherWareHouse.actionsLog) {
          action = nullptr;
     }
+    demiCust = nullptr;
+    demiVol = nullptr;
+    demiOrder = nullptr;
     otherWareHouse.actionsLog.clear();
     otherWareHouse.customers.clear();
     otherWareHouse.volunteers.clear();
@@ -454,4 +457,18 @@ void WareHouse::moveToCompleted(Order* orderToMove){
 void WareHouse::moveToPending(Order* orderToMove){
     inProcessOrders.erase(find(inProcessOrders.begin(), inProcessOrders.end(), orderToMove));
     pendingOrders.push_back(orderToMove);
+}
+
+const vector<Volunteer*>& WareHouse::getVolunteers() const{
+    return volunteers;    
+}
+
+/**
+ * @brief - this function removes a volunteers from the volunteers list and deletes it from the heap
+ * 
+ * @param volToDel - the volunteer to delete
+ */
+void WareHouse::removeVolunteer(Volunteer* volToDel){
+    volunteers.erase(find(volunteers.begin(), volunteers.end(), volToDel));
+    delete volToDel;
 }
