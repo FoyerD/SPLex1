@@ -48,6 +48,8 @@ void SimulateStep::singleStep(WareHouse& wareHouse){
 */
 void SimulateStep::phase1(WareHouse& wareHouse){
     Volunteer* freeVolunteer = nullptr;
+    vector<Order*> ordersToMove;
+
     for(Order* currOrder : wareHouse.getPendingOrders()){
 
         if(currOrder->getStatus() != OrderStatus::COLLECTING || currOrder->getStatus() != OrderStatus::PENDING) continue;//ensuring we deal with packeges of right status
@@ -66,14 +68,26 @@ void SimulateStep::phase1(WareHouse& wareHouse){
                 break;
         };
 
+        ordersToMove.push_back(currOrder);
+    }
+
+    for(Order* currOrder : ordersToMove){
         wareHouse.moveToInProcess(currOrder);
     }
 }
 
 void SimulateStep::phase2(WareHouse& wareHouse){
-    for(Volunteer* currVolunteer : wareHouse.getVolunteers()){
+    for(Volunteer* currVolunteer : wareHouse.getVolunteers()){//!TODO
         currVolunteer->step();
     }
 }
 
+void SimulateStep::phase3(WareHouse& wareHouse){
+    for(Volunteer* currVolunteer : wareHouse.getVolunteers()){//!TODO
+        if(currVolunteer->getCompletedOrderId() == NO_ORDER) continue;
+        Order& currOrder(wareHouse.getOrder(currVolunteer->getCompletedOrderId()));
+
+        currVolunteer->completeOrder();
+    }
+}
 
