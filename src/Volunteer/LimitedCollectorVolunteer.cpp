@@ -11,6 +11,7 @@ LimitedCollectorVolunteer::LimitedCollectorVolunteer(int id, string name, int co
                                                     maxOrders(maxOrders),
                                                     ordersLeft(maxOrders){}
 
+LimitedCollectorVolunteer::~LimitedCollectorVolunteer(){}
 /**
  * @returns - a new instance of volunteer with same parameters(not busy)
 */
@@ -27,8 +28,7 @@ bool LimitedCollectorVolunteer::hasOrdersLeft() const{
 */
 bool LimitedCollectorVolunteer::canTakeOrder(const Order& order) const{
     return hasOrdersLeft() &&
-            order.getStatus() == OrderStatus::PENDING &&
-            !isBusy();
+            CollectorVolunteer::canTakeOrder(order);
 }
 
 /**
@@ -39,7 +39,7 @@ bool LimitedCollectorVolunteer::canTakeOrder(const Order& order) const{
 */
 void LimitedCollectorVolunteer::acceptOrder(const Order& order){
     CollectorVolunteer::acceptOrder(order);
-    ordersLeft--;
+    ordersLeft = --ordersLeft < 0 ? 0 : ordersLeft;
 }
 
 int LimitedCollectorVolunteer::getMaxOrders() const{

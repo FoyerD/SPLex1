@@ -13,6 +13,7 @@ LimitedDriverVolunteer::LimitedDriverVolunteer(int id, const string &name, int m
                                                 ordersLeft(maxOrders){}
 
 
+LimitedDriverVolunteer::~LimitedDriverVolunteer(){}
 LimitedDriverVolunteer* LimitedDriverVolunteer::clone() const{
     return new LimitedDriverVolunteer(*this);
 }
@@ -26,10 +27,27 @@ bool LimitedDriverVolunteer::hasOrdersLeft() const{
 }
 
 bool LimitedDriverVolunteer::canTakeOrder(const Order& order) const{
-    return !isBusy() &&
-            order.getStatus() == OrderStatus::COLLECTING &&
-            getMaxDistance() < order.getDistance() &&
+    return DriverVolunteer::canTakeOrder(order) &&
             hasOrdersLeft();
 }
 
-void acceptOrder
+/**
+ * if !canTakeOrder(order) than return without doing anything
+ * Assign distanceLeft to order's distance and decrease ordersLeft
+ * Decreases ordersLeft by 1
+ * @param order - ref to a order the volunteer is going to handle
+*/
+void LimitedDriverVolunteer::acceptOrder(const Order& order){
+    if(!canTakeOrder(order)) return;
+    DriverVolunteer::acceptOrder(order);
+    ordersLeft = --ordersLeft < 0 ? 0 : ordersLeft;
+}
+
+string LimitedDriverVolunteer::toString() const{
+    string strDistanceLeft =  getDistanceLeft() == 0 ? "None" : std::to_string(getDistanceLeft());
+    return "VolunteerID: " + std::to_string(getId()) + "\n"
+           +"isBusy: " + std::to_string(isBusy()) + "\n"
+           +"OrderID: " + std::to_string(activeOrderId) + "\n"
+           +"timeLeft: " + strDistanceLeft + "\n"
+           +"ordersLeft: " + std::to_string(ordersLeft);
+}

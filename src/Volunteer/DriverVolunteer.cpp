@@ -14,6 +14,8 @@ DriverVolunteer::DriverVolunteer(int id,string name, int maxDistance, int distan
 DriverVolunteer* DriverVolunteer::clone() const{
     return new DriverVolunteer(*this);
 }
+DriverVolunteer::~DriverVolunteer(){}
+
 int DriverVolunteer::getDistanceLeft() const{return distanceLeft;}
 int DriverVolunteer::getMaxDistance() const{return maxDistance;}
 int DriverVolunteer::getDistancePerStep() const{return distancePerStep;}
@@ -45,7 +47,7 @@ bool DriverVolunteer::canTakeOrder(const Order& order) const{
 
 /**
  * !assumes instance can take order
- * accepts an order, updates distanceLeft and activeOrderId
+ * Assign distanceLeft to order's distance and decrease ordersLeft
  * @param order - ref to a order the volunteer is going to handle
 */
 void DriverVolunteer::acceptOrder(const Order& order){
@@ -56,20 +58,24 @@ void DriverVolunteer::acceptOrder(const Order& order){
 
 /**
  * Decrease distanceLeft by distancePerStep
+ * and only allows current order
+ * to be completed if completedOrderId == NO_ORDER
+ * If ditanceLeft is 0, set completeOrderId to activeOrderId
+ * and set activeOrderId to NO_ORDER
 */
 void DriverVolunteer::step(){
-    if(decreaseDistanceLeft()){
+    if(decreaseDistanceLeft() && completedOrderId == NO_ORDER){
         completedOrderId = activeOrderId;
         activeOrderId = NO_ORDER;
     }
 }
 
 string DriverVolunteer::toString() const{
-    string strTimeLeft =  distanceLeft == 0 ? "None" : std::to_string(distanceLeft);
+    string strDistanceLeft =  distanceLeft == 0 ? "None" : std::to_string(distanceLeft);
     return "VolunteerID: " + std::to_string(getId()) + "\n"
            +"isBusy: " + std::to_string(isBusy()) + "\n"
            +"OrderID: " + std::to_string(activeOrderId) + "\n"
-           +"timeLeft: " + strTimeLeft + "\n"
+           +"timeLeft: " + strDistanceLeft + "\n"
            +"ordersLeft: No Limit";
 }
 

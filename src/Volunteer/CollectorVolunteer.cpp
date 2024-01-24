@@ -9,6 +9,8 @@ CollectorVolunteer::CollectorVolunteer(int id, string name, int coolDown):
                                         Volunteer::Volunteer(id,name),
                                         coolDown(coolDown),
                                         timeLeft(0){}
+
+CollectorVolunteer::~CollectorVolunteer(){}
 /**
  * @returns - a new instance of volunteer with same parameters(not busy)
 */
@@ -54,8 +56,10 @@ void CollectorVolunteer::acceptOrder(const Order& order){
 
 /**
  * a step in the simulation:
- * decreaes @param timeLeft and only allows current order
- * to becompleted if @param completedOrderId == NO_ORDER
+ * decreaes timeLeft and only allows current order
+ * to be completed if completedOrderId == NO_ORDER
+ * If ditanceLeft is 0, set completeOrderId to activeOrderId
+ * and set activeOrderId to NO_ORDER
 */
 void CollectorVolunteer::step(){
     if(decreaseCoolDown() && completedOrderId == NO_ORDER){

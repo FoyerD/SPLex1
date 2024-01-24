@@ -9,6 +9,7 @@ Volunteer::Volunteer(int id, const string& name):
                     name(name),
                     completedOrderId(NO_ORDER),
                     activeOrderId(NO_ORDER){}
+Volunteer::~Volunteer(){}
 int Volunteer::getId() const{return id;}
 const string& Volunteer::getName() const{return name;}
 int Volunteer::getActiveOrderId() const{return activeOrderId;}
@@ -19,4 +20,12 @@ int Volunteer::getCompletedOrderId() const{return completedOrderId;}
 */
 bool Volunteer::isBusy() const{
     return activeOrderId != NO_ORDER;
+}
+
+/**
+ * sets activeOrderId to be NO_ORDER,
+ * signaling the complete order was taken
+*/
+void Volunteer::completeOrder(){
+    activeOrderId = NO_ORDER;
 }
