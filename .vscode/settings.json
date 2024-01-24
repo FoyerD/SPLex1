@@ -44,5 +44,13 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "typeinfo": "cpp"
-    }
+    },
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/workspaces/SPLex1/bin",
+            "binaryPath": "/workspaces/SPLex1/bin/program",
+            "binaryArgs": []
+        }
+    ]
 }
+
