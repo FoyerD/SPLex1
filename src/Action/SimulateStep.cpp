@@ -49,32 +49,31 @@ void SimulateStep::singleStep(WareHouse& wareHouse){
 void SimulateStep::phase1(WareHouse& wareHouse){
     Volunteer* freeVolunteer = nullptr;
     for(Order* currOrder : wareHouse.getPendingOrders()){
-        switch (currOrder->getStatus())
-        {
-        case OrderStatus::PENDING:
-            freeVolunteer = wareHouse.findFreeVolunteer(*currOrder);//!TODO
-            if(freeVolunteer == nullptr) break;
 
-            freeVolunteer->acceptOrder(*currOrder);
-            currOrder->setCollectorId(freeVolunteer->getId());
-            currOrder->setStatus(OrderStatus::COLLECTING);
-            wareHouse.moveToInProcces(*currOrder);//!TODO
-        case OrderStatus::COLLECTING:
-            freeVolunteer = wareHouse.findFreeVolunteer(*currOrder);//!TODO
-            if(freeVolunteer == nullptr) break;
-
-            freeVolunteer->acceptOrder(*currOrder);
-            currOrder->setDriverId(freeVolunteer->getId());
-            currOrder->setStatus(OrderStatus::DELIVERING);
-            wareHouse.moveToInProcces(currOrder);
-        default:
-            break;
+        if(currOrder->getStatus() != OrderStatus::COLLECTING || currOrder->getStatus() != OrderStatus::PENDING) continue;//ensuring we deal with packeges of right status
+        freeVolunteer = wareHouse.findFreeVolunteer(*currOrder);
+        if(freeVolunteer == nullptr) continue;//ensuring we have a free volunteer
+        
+        freeVolunteer->acceptOrder(*currOrder);
+        switch (currOrder->getStatus()){
+            case OrderStatus::PENDING:
+                currOrder->setCollectorId(freeVolunteer->getId());
+                currOrder->setStatus(OrderStatus::COLLECTING);
+            case OrderStatus::COLLECTING:
+                currOrder->setDriverId(freeVolunteer->getId());
+                currOrder->setStatus(OrderStatus::DELIVERING);
+            default:
+                break;
         };
+
+        wareHouse.moveToInProcess(currOrder);
     }
 }
 
 void SimulateStep::phase2(WareHouse& wareHouse){
-    
+    for(Volunteer* currVolunteer : wareHouse.getVolunteers()){
+        currVolunteer->step();
+    }
 }
 
 
