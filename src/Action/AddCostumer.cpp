@@ -19,7 +19,7 @@ string AddCustomer::toString() const{
 }
 
 void AddCustomer::act(WareHouse& wareHouse){
-    int id = wareHouse.getCustomerCounter();//!TODO
+    int id = wareHouse.getCustomersNumber();
     switch (customerType)
     {
     case CustomerType::Civilian:
