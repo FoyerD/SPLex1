@@ -8,11 +8,12 @@ BackupWareHouse* BackupWareHouse::clone() const{
 }
 
 string BackupWareHouse::toString() const{
-    return "BackupWareHouse " + statusToString[(int)getStatus()];
+    return "backup " + statusToString[(int)getStatus()];
 }
 
 
 void BackupWareHouse::act(WareHouse& wareHouse){
-    
+    if(backup != nullptr) delete backup;
+    backup = new WareHouse(wareHouse);
     complete();
 }
