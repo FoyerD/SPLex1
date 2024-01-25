@@ -6,7 +6,8 @@ AddOrder::AddOrder(int id):
 AddOrder::~AddOrder(){}
 
 string AddOrder::toString() const{
-    return "order" + std::to_string(customerId);
+    return "order " + std::to_string(customerId) + " " + 
+            statusToString[(int)getStatus()];;
 }
 
 void AddOrder::act(WareHouse& wareHouse){

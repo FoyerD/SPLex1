@@ -8,13 +8,15 @@ PrintActionsLog* PrintActionsLog::clone() const{
 }
 
 string PrintActionsLog::toString() const{
-    return "log";
+    return "log " + statusToString[(int)getStatus()];
 }
 
 
 void PrintActionsLog::act(WareHouse& wareHouse){
+    string toPrint("");
     for(BaseAction* currAction : wareHouse.getActions()){
-        
+        toPrint += currAction->toString() + "\n";
     }
+    std::cout << toPrint << std::endl;
     complete();
 }

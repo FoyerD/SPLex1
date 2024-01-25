@@ -14,6 +14,7 @@ enum class CustomerType{
 };
 
 std::vector<string> typeToString = {"Soldier", "Civilian"};
+std::vector<string> statusToString = {"COMPLETED", "ERROR"};
 static CustomerType stringToType(string str){
     if(str.compare("soldier") == 0) return CustomerType::Soldier;
     return CustomerType::Civilian;

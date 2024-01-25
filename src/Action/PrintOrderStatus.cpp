@@ -10,7 +10,9 @@ PrintOrderStatus* PrintOrderStatus::clone() const{
 }
 
 string PrintOrderStatus::toString() const{
-    return "orderStatus " + std::to_string(orderId);
+    return "orderStatus " +
+            std::to_string(orderId) + " " + 
+            statusToString[(int)getStatus()];
 }
 
 

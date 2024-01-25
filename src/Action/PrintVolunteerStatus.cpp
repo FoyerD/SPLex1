@@ -10,7 +10,9 @@ PrintVolunteerStatus* PrintVolunteerStatus::clone() const{
 }
 
 string PrintVolunteerStatus::toString() const{
-    return "customerStatus " + std::to_string(VolunteerId);
+    return "customerStatus " +
+            std::to_string(VolunteerId) + " " + 
+            statusToString[(int)getStatus()];
 }
 
 

@@ -15,7 +15,8 @@ string AddCustomer::toString() const{
             customerName + " " +
             typeToString[(int)customerType] + " " +
             std::to_string(distance) + " " +
-            std::to_string(maxOrders); 
+            std::to_string(maxOrders) + " " + 
+            statusToString[(int)getStatus()]; 
 }
 
 void AddCustomer::act(WareHouse& wareHouse){
