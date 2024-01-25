@@ -16,7 +16,10 @@ string PrintVolunteerStatus::toString() const{
 
 void PrintVolunteerStatus::act(WareHouse& wareHouse){
     Volunteer* toPrint = &wareHouse.getVolunteer(VolunteerId);
-    if(toPrint->getId() == -1) error("Volunteer doesn't exist");
+    if(toPrint->getId() == -1){
+        error("Volunteer doesn't exist");
+        return;
+    }
     std::cout << toPrint->toString();
     complete();
 }

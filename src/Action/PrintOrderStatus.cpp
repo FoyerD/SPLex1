@@ -16,7 +16,10 @@ string PrintOrderStatus::toString() const{
 
 void PrintOrderStatus::act(WareHouse& wareHouse){
     Order& toPrint = wareHouse.getOrder(orderId);
-    if(toPrint.getId() == -1) error("Order doesn't exist");
+    if(toPrint.getId() == -1){
+        error("Order doesn't exist");
+        return;
+    }
     std::cout << toPrint.toString();
     complete();
 }
