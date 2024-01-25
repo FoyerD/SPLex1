@@ -1,11 +1,13 @@
 #include "Action.h"
 
 AddOrder::AddOrder(int id):
+                    BaseAction::BaseAction(),
                     customerId(id){}
 AddOrder::~AddOrder(){}
 
 string AddOrder::toString() const{
-    return "order" + std::to_string(customerId);
+    return "order " + std::to_string(customerId) + " " + 
+            statusToString[(int)getStatus()];;
 }
 
 void AddOrder::act(WareHouse& wareHouse){
@@ -16,4 +18,5 @@ void AddOrder::act(WareHouse& wareHouse){
     }
 
     wareHouse.addOrder(new Order(wareHouse.getOrdersNumber(), customerId, currCustomer.getCustomerDistance()));
+    complete();
 }
