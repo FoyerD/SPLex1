@@ -1,4 +1,4 @@
-#include "WareHouse.h"
+#include "../include/WareHouse.h"
 /**
  * @brief Construct a new Ware House:: Ware House object
  * 
@@ -145,6 +145,14 @@ void WareHouse::open(){
 
 int WareHouse::getOrdersNumber() const{
     return orderCounter;
+}
+
+int WareHouse::getVolunteersNumber() const{
+    return volunteerCounter;
+}
+
+int WareHouse::getCustomersNumber() const{
+    return customerCounter;
 }
 
 /**

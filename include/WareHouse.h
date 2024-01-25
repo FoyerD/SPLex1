@@ -52,6 +52,8 @@ class WareHouse {
         const vector<Order*>& getInProccesOrders() const;
         const vector<Order*>& getCompletedOrders() const;
         int getOrdersNumber() const;
+        int getVolunteersNumber() const;
+        int getCustomersNumber() const;
         void close();
         void open();
         ~WareHouse();
