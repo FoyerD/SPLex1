@@ -43,8 +43,13 @@
         "sstream": "cpp",
         "stdexcept": "cpp",
         "streambuf": "cpp",
-        "typeinfo": "cpp",
-        "printcustomerstatus": "cpp"
+        "typeinfo": "cpp"
     },
-    "C_Cpp.errorSquiggles": "enabled"
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/workspaces/SPLex1/bin",
+            "binaryPath": "/workspaces/SPLex1/bin/warehouse",
+            "binaryArgs": []
+        }
+    ]
 }
