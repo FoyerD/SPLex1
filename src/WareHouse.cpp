@@ -1,12 +1,12 @@
 #include "../include/WareHouse.h"
- 
+#include "Action.h"
 WareHouse* backup = nullptr;
 /**
  * @brief Construct a new Ware House:: Ware House object
  * 
  * @param configFilePath - the path to the configuration file given by the user
  */
-WareHouse::WareHouse(const string &configFilePath): isOpen(false), customerCounter(0), volunteerCounter(0), parser(), demiCust(new CivilianCustomer(DOES_NOT_EXIST, "", DOES_NOT_EXIST, DOES_NOT_EXIST)), demiVol(new CollectorVolunteer(DOES_NOT_EXIST, "", DOES_NOT_EXIST)), demiOrder(new Order(DOES_NOT_EXIST, DOES_NOT_EXIST, DOES_NOT_EXIST)){
+WareHouse::WareHouse(const string &configFilePath): isOpen(false), customerCounter(0), volunteerCounter(0), orderCounter(0), parser(), demiCust(new CivilianCustomer(DOES_NOT_EXIST, "", DOES_NOT_EXIST, DOES_NOT_EXIST)), demiVol(new CollectorVolunteer(DOES_NOT_EXIST, "", DOES_NOT_EXIST)), demiOrder(new Order(DOES_NOT_EXIST, DOES_NOT_EXIST, DOES_NOT_EXIST)){
     proccessConfigFile(configFilePath);
 }
 

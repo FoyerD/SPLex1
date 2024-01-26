@@ -1,5 +1,5 @@
 #include "Action.h"
-
+#include "WareHouse.h"
 PrintVolunteerStatus::PrintVolunteerStatus(int id):
                                     BaseAction::BaseAction(),
                                     VolunteerId(id){}
@@ -12,7 +12,7 @@ PrintVolunteerStatus* PrintVolunteerStatus::clone() const{
 string PrintVolunteerStatus::toString() const{
     return "customerStatus " +
             std::to_string(VolunteerId) + " " + 
-            statusToString[(int)getStatus()];
+            statusToString[(int)BaseAction::getStatus()];
 }
 
 

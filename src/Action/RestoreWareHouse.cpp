@@ -1,5 +1,5 @@
 #include "Action.h"
-extern WareHouse* backup;
+#include "WareHouse.h"
 RestoreWareHouse::RestoreWareHouse(): BaseAction::BaseAction(){}
 RestoreWareHouse::~RestoreWareHouse(){}
 
@@ -8,7 +8,7 @@ RestoreWareHouse* RestoreWareHouse::clone() const{
 }
 
 string RestoreWareHouse::toString() const{
-    return "restore " + statusToString[(int)getStatus()];
+    return "restore " + statusToString[(int)BaseAction::getStatus()];
 }
 
 

@@ -1,5 +1,5 @@
 #include "Action.h"
-
+#include "WareHouse.h"
 BackupWareHouse::BackupWareHouse(): BaseAction::BaseAction(){}
 BackupWareHouse::~BackupWareHouse(){}
 
@@ -8,7 +8,7 @@ BackupWareHouse* BackupWareHouse::clone() const{
 }
 
 string BackupWareHouse::toString() const{
-    return "backup " + statusToString[(int)getStatus()];
+    return "backup " + statusToString[(int)BaseAction::getStatus()];
 }
 
 

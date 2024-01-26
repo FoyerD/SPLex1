@@ -1,5 +1,5 @@
 #include "Action.h"
-
+#include "WareHouse.h"
 PrintOrderStatus::PrintOrderStatus(int id):
                                     BaseAction::BaseAction(),
                                     orderId(id){}
@@ -12,7 +12,7 @@ PrintOrderStatus* PrintOrderStatus::clone() const{
 string PrintOrderStatus::toString() const{
     return "orderStatus " +
             std::to_string(orderId) + " " + 
-            statusToString[(int)getStatus()];
+            statusToString[(int)BaseAction::getStatus()];
 }
 
 

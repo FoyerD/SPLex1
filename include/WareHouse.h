@@ -8,7 +8,6 @@ using namespace std;
 #include "Customer.h"
 #include "Parser.h"
 #include "Volunteer.h"
-#include "Action.h"
 class BaseAction;
 class Volunteer;
 #define CUSTOMER "customer"
@@ -31,7 +30,6 @@ class Volunteer;
 #define LCOLLECTOR "limited_collector"
 // Warehouse responsible for Volunteers, Customers Actions, and Orders.
 
-extern WareHouse* backup;
 
 class WareHouse {
 
@@ -83,3 +81,5 @@ class WareHouse {
         Volunteer* demiVol;
         Order* demiOrder;
 };
+
+extern WareHouse* backup;

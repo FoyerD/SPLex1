@@ -21,8 +21,6 @@ enum class OrderStatus {
 #define NO_VOLUNTEER -1
 #define NONE "None"
 
-vector<string> OrderStatusNames = {"PENDING", "COLLECTING", "DELIVERING", "COMPLETED"};
-
 class Order {
 
     public:

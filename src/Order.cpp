@@ -1,5 +1,5 @@
 #include "Order.h"
-
+vector<string> OrderStatusNames = {"PENDING", "COLLECTING", "DELIVERING", "COMPLETED"};
 /**
  * @brief Construct a new Order:: Order object
  * 
@@ -47,9 +47,9 @@ const string Order::toString() const{
     ostringstream s;
     string coltId = (collectorId != NO_VOLUNTEER) ? to_string(collectorId) : NONE;
     string drvId = (driverId != NO_VOLUNTEER) ? to_string(driverId) : NONE;
-    s << "OrderId: " << id + "/nOrderStatus: " << OrderStatusNames[int(status)] << 
-    "/nCustomerId: " << customerId << "/nCollector: " << coltId 
-    << "/nDriver: " << drvId;
+    s << "\nOrderId: " << to_string(id) + "\nOrderStatus: " << OrderStatusNames[int(status)] << 
+    "\nCustomerId: " << customerId << "\nCollector: " << coltId 
+    << "\nDriver: " << drvId << endl;
     return s.str();
 }
 
@@ -59,7 +59,7 @@ const int Order::getDistance() const{
 
 const string Order::printStatus() const{
     ostringstream s;
-    s << "OrderId: " << id + "/nOrderStatus: " << OrderStatusNames[int(status)];
+    s << "OrderId: " << id + "\nOrderStatus: " << OrderStatusNames[int(status)];
     return s.str();
 }
 

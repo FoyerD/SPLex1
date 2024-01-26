@@ -1,5 +1,5 @@
 #include "Action.h"
-
+#include "WareHouse.h"
 Close::Close(): BaseAction::BaseAction(){}
 Close::~Close(){}
 
@@ -8,7 +8,7 @@ Close* Close::clone() const{
 }
 
 string Close::toString() const{
-    return "close " + statusToString[(int)getStatus()];
+    return "close " + statusToString[(int)BaseAction::getStatus()];
 }
 
 

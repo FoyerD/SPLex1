@@ -1,5 +1,5 @@
 #include "../include/Action.h"
-
+#include "WareHouse.h"
 
 /**
  * @param numOfSteps - number of steps the action simulates

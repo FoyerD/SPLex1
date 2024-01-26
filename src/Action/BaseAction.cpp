@@ -1,5 +1,5 @@
 #include "Action.h"
-
+#include "WareHouse.h"
 /**
  * sets errorMsg to epty string
  * sets status to ACTIVE
@@ -29,3 +29,5 @@ void BaseAction::error(string errorMsg){
 }
 
 string BaseAction::getErrorMsg() const{return errorMsg;}
+
+ActionStatus BaseAction::getStatus() const{return status;}

@@ -1,5 +1,5 @@
 #include "Action.h"
-
+#include "WareHouse.h"
 PrintActionsLog::PrintActionsLog(): BaseAction::BaseAction(){}
 PrintActionsLog::~PrintActionsLog(){}
 
@@ -8,7 +8,7 @@ PrintActionsLog* PrintActionsLog::clone() const{
 }
 
 string PrintActionsLog::toString() const{
-    return "log " + statusToString[(int)getStatus()];
+    return "log " + statusToString[(int)BaseAction::getStatus()];
 }
 
 

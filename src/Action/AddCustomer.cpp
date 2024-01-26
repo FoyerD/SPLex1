@@ -1,5 +1,5 @@
 #include "Action.h"
-
+#include "WareHouse.h"
 AddCustomer::AddCustomer(string customerName, string customerType, int distance, int maxOrders):
                         BaseAction::BaseAction(),
                         customerName(customerName),
@@ -16,7 +16,7 @@ string AddCustomer::toString() const{
             typeToString[(int)customerType] + " " +
             std::to_string(distance) + " " +
             std::to_string(maxOrders) + " " + 
-            statusToString[(int)getStatus()]; 
+            statusToString[(int)BaseAction::getStatus()]; 
 }
 
 void AddCustomer::act(WareHouse& wareHouse){

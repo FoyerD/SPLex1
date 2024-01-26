@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "WareHouse.h"
+class WareHouse;
 using std::string;
 using std::vector;
 
@@ -13,8 +13,8 @@ enum class CustomerType{
     Soldier, Civilian
 };
 
-std::vector<string> typeToString = {"Soldier", "Civilian"};
-std::vector<string> statusToString = {"COMPLETED", "ERROR"};
+inline std::vector<string> typeToString = {"Soldier", "Civilian"};
+inline std::vector<string> statusToString = {"COMPLETED", "ERROR"};
 static CustomerType stringToType(string str){
     if(str.compare("soldier") == 0) return CustomerType::Soldier;
     return CustomerType::Civilian;
