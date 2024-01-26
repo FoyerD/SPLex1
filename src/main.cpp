@@ -3,7 +3,7 @@
 
 using namespace std;
 
-WareHouse* backup = nullptr;
+extern WareHouse* backup = nullptr;
 
 int main(int argc, char** argv){
     if(argc!=2){

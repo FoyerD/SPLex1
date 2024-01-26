@@ -1,5 +1,5 @@
 #include "Action.h"
-
+extern WareHouse* backup;
 RestoreWareHouse::RestoreWareHouse(): BaseAction::BaseAction(){}
 RestoreWareHouse::~RestoreWareHouse(){}
 
@@ -17,6 +17,6 @@ void RestoreWareHouse::act(WareHouse& wareHouse){
         error("No backup available");
         return;
     }
-    wareHouse = WareHouse(backup);//should not work, backup is of type: error-type?
+    wareHouse = WareHouse(*backup);
     complete();
 }
