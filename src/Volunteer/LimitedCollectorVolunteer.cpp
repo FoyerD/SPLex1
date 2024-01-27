@@ -39,7 +39,6 @@ bool LimitedCollectorVolunteer::canTakeOrder(const Order& order) const{
 */
 void LimitedCollectorVolunteer::acceptOrder(const Order& order){
     CollectorVolunteer::acceptOrder(order);
-    ordersLeft--;
 }
 
 int LimitedCollectorVolunteer::getMaxOrders() const{
