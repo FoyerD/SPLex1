@@ -72,11 +72,11 @@ void DriverVolunteer::step(){
 
 string DriverVolunteer::toString() const{
     string strDistanceLeft =  distanceLeft == 0 ? "None" : std::to_string(distanceLeft);
-    return "VolunteerID: " + std::to_string(getId()) + "\n"
-           +"isBusy: " + std::to_string(isBusy()) + "\n"
+    return "\nVolunteerID: " + std::to_string(getId()) + "\n"
+           +"isBusy: " + (isBusy() == true ? "true" : "false") + "\n"
            +"OrderID: " + std::to_string(activeOrderId) + "\n"
            +"timeLeft: " + strDistanceLeft + "\n"
-           +"ordersLeft: No Limit";
+           +"ordersLeft: No Limit\n";
 }
 
 

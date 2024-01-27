@@ -39,6 +39,7 @@ bool LimitedCollectorVolunteer::canTakeOrder(const Order& order) const{
 */
 void LimitedCollectorVolunteer::acceptOrder(const Order& order){
     CollectorVolunteer::acceptOrder(order);
+    ordersLeft--;
 }
 
 int LimitedCollectorVolunteer::getMaxOrders() const{
@@ -50,11 +51,11 @@ int LimitedCollectorVolunteer::getNumOrdersLeft() const{
 
 string LimitedCollectorVolunteer::toString() const{
     string strTimeLeft =  getTimeLeft() == 0 ? "None" : std::to_string(getTimeLeft());
-    return "VolunteerID: " + std::to_string(getId()) + "\n"
-           +"isBusy: " + std::to_string(isBusy()) + "\n"
+    return "\nVolunteerID: " + std::to_string(getId()) + "\n"
+           +"isBusy: " + (isBusy() == true ? "true" : "false") + "\n"
            +"OrderID: " + std::to_string(activeOrderId) + "\n"
            +"timeLeft: " + strTimeLeft + "\n"
-           +"ordersLeft: " + std::to_string(ordersLeft);
+           +"ordersLeft: " + std::to_string(ordersLeft) + "\n";
 }
 
 /**

@@ -21,7 +21,7 @@ void WareHouse::start(){
         if(splitedInput[0].compare(STEP) == 0){
             currAction = new SimulateStep(stoi(splitedInput[1]));
         }
-        else if(splitedInput[0].compare(ADDORDER) == 0){
+        else if(splitedInput[0].compare(ADDORDER) == 0 && splitedInput.size() == 2){
             currAction = new AddOrder(stoi(splitedInput[1]));
         }
         else if(splitedInput[0].compare(CUSTOMER) == 0){
@@ -276,6 +276,7 @@ WareHouse::~WareHouse(){
     clear();
     delete demiCust;
     delete demiVol;
+    delete demiOrder;
 }
 
 /**
@@ -316,17 +317,14 @@ WareHouse& WareHouse::operator=(const WareHouse& other){
 
 void WareHouse::clear(){
     for (auto & order : pendingOrders) {
-         cout << (*order).printAfterClose() << endl;
          delete order;
          order = nullptr;
     }
     for (auto & order : inProcessOrders) {
-         cout << (*order).printAfterClose() << endl;
          delete order;
          order = nullptr;
     }
     for (auto & order : completedOrders) {
-         cout << (*order).printAfterClose() << endl;
          delete order;
          order = nullptr;
     }

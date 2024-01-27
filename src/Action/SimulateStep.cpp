@@ -53,7 +53,7 @@ void SimulateStep::phase1(WareHouse& wareHouse) const{
 
     for(Order* currOrder : wareHouse.getPendingOrders()){
 
-        if(currOrder->getStatus() != OrderStatus::COLLECTING || currOrder->getStatus() != OrderStatus::PENDING) continue;//ensuring we deal with packeges of right status
+        if(currOrder->getStatus() != OrderStatus::COLLECTING && currOrder->getStatus() != OrderStatus::PENDING) continue;//ensuring we deal with packeges of right status
         freeVolunteer = wareHouse.findFreeVolunteer(*currOrder);
         if(freeVolunteer == nullptr) continue;//ensuring we have a free volunteer
         

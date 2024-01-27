@@ -27,7 +27,7 @@ void PrintCustomerStatus::act(WareHouse& wareHouse){
     for(int currID : customerToPrint->getOrdersIds()){
         strToPrint += wareHouse.getOrder(currID).printStatus() + "\n";
     }
-    strToPrint += "\nnumOrdersLeft: " + std::to_string(customerToPrint->getMaxOrders() - customerToPrint->getNumOrders());
+    strToPrint += "numOrdersLeft: " + std::to_string(customerToPrint->getMaxOrders() - customerToPrint->getNumOrders());
     std::cout << strToPrint << std::endl;
     complete();
 }

@@ -16,6 +16,7 @@ void AddOrder::act(WareHouse& wareHouse){
         error("Cannot place this order");
         return;
     }
+    currCustomer.addOrder(wareHouse.getOrdersNumber());
     wareHouse.addOrder(new Order(wareHouse.getOrdersNumber(), customerId, currCustomer.getCustomerDistance()));
     complete();
 }

@@ -70,9 +70,9 @@ void CollectorVolunteer::step(){
 
 string CollectorVolunteer::toString() const{
     string strTimeLeft =  timeLeft == 0 ? "None" : std::to_string(timeLeft);
-    return "VolunteerID:" + std::to_string(getId()) + "\n"
-           +"isBusy:" + std::to_string(isBusy()) + "\n"
-           +"OrderID" + std::to_string(activeOrderId) + "\n"
-           +"timeLeft:" + strTimeLeft + "\n"
-           +"ordersLeft:No Limit";
+    return "\nVolunteerID: " + std::to_string(getId()) + "\n"
+           +"isBusy: " + (isBusy() == true ? "true" : "false") + "\n"
+           +"OrderID: " + std::to_string(activeOrderId) + "\n"
+           +"timeLeft: " + strTimeLeft + "\n"
+           +"ordersLeft: No Limit\n";
 }

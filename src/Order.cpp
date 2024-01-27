@@ -59,7 +59,7 @@ const int Order::getDistance() const{
 
 const string Order::printStatus() const{
     ostringstream s;
-    s << "OrderId: " << id + "\nOrderStatus: " << OrderStatusNames[int(status)];
+    s << "OrderId: " << to_string(id) + "\nOrderStatus: " << OrderStatusNames[int(status)];
     return s.str();
 }
 
@@ -69,6 +69,6 @@ const string Order::printStatus() const{
  */
 const string Order::printAfterClose() const{
     ostringstream s;
-    s << "OrderId: " << id + ", CustomerID: " << customerId << ", OrderStatus: " << OrderStatusNames[int(status)];
+    s << "OrderId: " << to_string(id) + ", CustomerID: " << to_string(customerId) << ", OrderStatus: " << OrderStatusNames[int(status)];
     return s.str();
 }
