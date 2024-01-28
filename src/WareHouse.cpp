@@ -134,6 +134,7 @@ const vector<BaseAction*> &WareHouse::getActions() const{
  */
 void WareHouse::close(){
     isOpen = false;
+    delete backup;
 }
 
 /**
