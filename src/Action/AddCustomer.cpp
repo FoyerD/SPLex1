@@ -34,3 +34,9 @@ void AddCustomer::act(WareHouse& wareHouse){
     }
     complete();
 }
+
+
+CustomerType AddCustomer::stringToType(const string& str) const{
+    if(str.compare("soldier") == 0) return CustomerType::Soldier;
+    return CustomerType::Civilian;
+}

@@ -34,7 +34,6 @@ bool LimitedCollectorVolunteer::canTakeOrder(const Order& order) const{
 /**
  * !assumes instance can take order
  * accepts an order, updates timeLeft to coolDown and activeOrderId to order.getId()
- * decreases ordersLeft by 1 
  * @param order - ref to a order the volunteer is going to handle
 */
 void LimitedCollectorVolunteer::acceptOrder(const Order& order){
@@ -52,7 +51,7 @@ string LimitedCollectorVolunteer::toString() const{
     string strTimeLeft =  getTimeLeft() == 0 ? "None" : std::to_string(getTimeLeft());
     return "\nVolunteerID: " + std::to_string(getId()) + "\n"
            +"isBusy: " + (isBusy() == true ? "true" : "false") + "\n"
-           +"OrderID: " + std::to_string(activeOrderId) + "\n"
+           +"OrderID: " + (activeOrderId == NO_ORDER ? "None" : std::to_string(activeOrderId)) + "\n"
            +"timeLeft: " + strTimeLeft + "\n"
            +"ordersLeft: " + std::to_string(ordersLeft) + "\n";
 }

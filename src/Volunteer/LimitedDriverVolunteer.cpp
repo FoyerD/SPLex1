@@ -32,13 +32,11 @@ bool LimitedDriverVolunteer::canTakeOrder(const Order& order) const{
 }
 
 /**
- * if !canTakeOrder(order) than return without doing anything
+ * !assumes instance can take order
  * Assign distanceLeft to order's distance and decrease ordersLeft
- * Decreases ordersLeft by 1
  * @param order - ref to a order the volunteer is going to handle
 */
 void LimitedDriverVolunteer::acceptOrder(const Order& order){
-    if(!canTakeOrder(order)) return;
     DriverVolunteer::acceptOrder(order);
 }
 
@@ -46,7 +44,7 @@ string LimitedDriverVolunteer::toString() const{
     string strDistanceLeft =  getDistanceLeft() == 0 ? "None" : std::to_string(getDistanceLeft());
     return "\nVolunteerID: " + std::to_string(getId()) + "\n"
            +"isBusy: " + (isBusy() == true ? "true" : "false") + "\n"
-           +"OrderID: " + std::to_string(activeOrderId) + "\n"
+           +"OrderID: " + (activeOrderId == NO_ORDER ? "None" : std::to_string(activeOrderId)) + "\n"
            +"timeLeft: " + strDistanceLeft + "\n"
            +"ordersLeft: " + std::to_string(ordersLeft) + "\n";
 }

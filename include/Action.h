@@ -13,12 +13,9 @@ enum class CustomerType{
     Soldier, Civilian
 };
 
-inline std::vector<string> typeToString = {"Soldier", "Civilian"};
-inline std::vector<string> statusToString = {"COMPLETED", "ERROR"};
-static CustomerType stringToType(string str){
-    if(str.compare("soldier") == 0) return CustomerType::Soldier;
-    return CustomerType::Civilian;
-}
+static std::vector<string> typeToString = {"Soldier", "Civilian"};
+static std::vector<string> statusToString = {"COMPLETED", "ERROR"};
+
 
 class Customer;
 
@@ -83,6 +80,7 @@ class AddCustomer : public BaseAction {
         const CustomerType customerType;
         const int distance;
         const int maxOrders;
+        CustomerType stringToType(const string& str) const;
 };
 
 

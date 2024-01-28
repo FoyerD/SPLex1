@@ -1,24 +1,10 @@
-    "version": "2.0.0",
-    "tasks": [
+{
+  "version": "2.0.0",
+  "tasks": [
       {
-        "label": "build",
-        "type": "shell",
-        "command": "make",
-        "group": {
-          "kind": "build",
-          "isDefault": true
-        },
-        "options": {
-          "cwd": "${workspaceFolder}"
-        },
-        "problemMatcher": [
-          "$gcc"
-        ],
-        "presentation": {
-          "reveal": "always",
-          "panel": "new"
-        }
-      }
-    ]
-  }
-
+          "label": "make",
+          "type": "shell",
+          "command": "make",
+      },
+  ]
+}

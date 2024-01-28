@@ -430,7 +430,7 @@ const vector<Order*>& WareHouse::getCompletedOrders() const{
  * @return - a pointer to the volunteer we found
  */
 Volunteer* WareHouse::findFreeVolunteer(Order& orderToHandle){
-    for(auto& volunteer : volunteers){
+    for(Volunteer* volunteer : volunteers){
         if(volunteer->canTakeOrder(orderToHandle)){
             return volunteer;
         }
