@@ -53,8 +53,8 @@ void WareHouse::start(){
         else {
             continue;
         }
-        actionsLog.push_back(currAction);
         currAction->act(*this);
+        actionsLog.push_back(currAction);
     }
 }
 
