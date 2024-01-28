@@ -28,7 +28,7 @@ bool Volunteer::isBusy() const{
  * @return - ID of the completed order
 */
 int Volunteer::completeOrder(){
-    int retID = activeOrderId;
-    activeOrderId = NO_ORDER;
+    int retID = completedOrderId;
+    completedOrderId = NO_ORDER;
     return retID;
 }
