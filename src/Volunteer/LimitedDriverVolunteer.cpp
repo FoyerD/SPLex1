@@ -32,13 +32,11 @@ bool LimitedDriverVolunteer::canTakeOrder(const Order& order) const{
 }
 
 /**
- * if !canTakeOrder(order) than return without doing anything
+ * !assumes instance can take order
  * Assign distanceLeft to order's distance and decrease ordersLeft
- * Decreases ordersLeft by 1
  * @param order - ref to a order the volunteer is going to handle
 */
 void LimitedDriverVolunteer::acceptOrder(const Order& order){
-    if(!canTakeOrder(order)) return;
     DriverVolunteer::acceptOrder(order);
 }
 
