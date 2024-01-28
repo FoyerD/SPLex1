@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 #include "include/Parser.h"
 //constructor
+=======
+#include "../include/Parser.h"
+
+>>>>>>> 0f6aa9c89cce20b0f0eacc4b58be3e37998fe2ce
 Parser::Parser(){}
 
 /**
@@ -9,14 +14,14 @@ Parser::Parser(){}
 vector<string> Parser::ParseFile(const string &configFilePath){
     fstream configFile;
     vector<string> data;
-    configFile.open(configFilePath, ios::out);
+    configFile.open(configFilePath, ios::in);
      if (configFile.is_open()) { 
         string line;
         while (std::getline(configFile, line)) { 
-            data.push_back(line);
+            if(line.compare("") != 0) data.push_back(line);
         }
+        configFile.close();
     }
-    configFile.close();
     return data;
 }
 
