@@ -17,6 +17,6 @@ void RestoreWareHouse::act(WareHouse& wareHouse){
         error("No backup available");
         return;
     }
-    wareHouse = WareHouse(*backup);
+    wareHouse = *backup;
     complete();
 }
