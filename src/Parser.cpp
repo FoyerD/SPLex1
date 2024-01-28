@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-#include "include/Parser.h"
-//constructor
-=======
 #include "../include/Parser.h"
 
->>>>>>> 0f6aa9c89cce20b0f0eacc4b58be3e37998fe2ce
 Parser::Parser(){}
 
 /**

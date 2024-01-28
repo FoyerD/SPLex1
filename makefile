@@ -73,7 +73,7 @@ clean:
 	rm -f bin/*
 
 valgrind:
-	valgrind --leak-check=full --show-reachable=yes bin/warehouse
+	valgrind --leak-check=full --show-reachable=yes bin/warehouse configFileExample.txt
 
 
 
