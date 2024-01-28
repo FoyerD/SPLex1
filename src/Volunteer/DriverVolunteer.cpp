@@ -74,7 +74,7 @@ string DriverVolunteer::toString() const{
     string strDistanceLeft =  distanceLeft == 0 ? "None" : std::to_string(distanceLeft);
     return "\nVolunteerID: " + std::to_string(getId()) + "\n"
            +"isBusy: " + (isBusy() == true ? "true" : "false") + "\n"
-           +"OrderID: " + std::to_string(activeOrderId) + "\n"
+           +"OrderID: " + (activeOrderId == NO_ORDER ? "None" : std::to_string(activeOrderId)) + "\n"
            +"timeLeft: " + strDistanceLeft + "\n"
            +"ordersLeft: No Limit\n";
 }

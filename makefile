@@ -1,4 +1,4 @@
-all: clean bin/warehouse
+all: clean bin/warehouse valgrind
 
 bin/warehouse: bin/main.o bin/Customer.o bin/Order.o bin/CollectorVolunteer.o bin/DriverVolunteer.o \
 	bin/LimitedCollectorVolunteer.o bin/LimitedDriverVolunteer.o bin/Volunteer.o bin/Parser.o \
