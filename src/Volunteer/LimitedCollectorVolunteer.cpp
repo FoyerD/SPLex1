@@ -52,7 +52,7 @@ string LimitedCollectorVolunteer::toString() const{
     string strTimeLeft =  getTimeLeft() == 0 ? "None" : std::to_string(getTimeLeft());
     return "\nVolunteerID: " + std::to_string(getId()) + "\n"
            +"isBusy: " + (isBusy() == true ? "true" : "false") + "\n"
-           +"OrderID: " + (activeOrderId == NO_ORDER ? "None" : std::to_string(distanceLeft)) + "\n"
+           +"OrderID: " + (activeOrderId == NO_ORDER ? "None" : std::to_string(activeOrderId)) + "\n"
            +"timeLeft: " + strTimeLeft + "\n"
            +"ordersLeft: " + std::to_string(ordersLeft) + "\n";
 }
