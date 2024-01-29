@@ -14,6 +14,6 @@ string BackupWareHouse::toString() const{
 
 void BackupWareHouse::act(WareHouse& wareHouse){
     if(backup != nullptr) delete backup;
-    backup = new WareHouse(wareHouse);
+    *backup = wareHouse;
     complete();
 }
