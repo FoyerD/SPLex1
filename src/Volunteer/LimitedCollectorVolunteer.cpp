@@ -20,7 +20,7 @@ LimitedCollectorVolunteer* LimitedCollectorVolunteer::clone() const{
 }
 
 bool LimitedCollectorVolunteer::hasOrdersLeft() const{
-    return ordersLeft != 0;
+    return ordersLeft > 0;
 }
 
 /**
