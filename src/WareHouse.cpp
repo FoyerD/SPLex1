@@ -6,7 +6,9 @@ WareHouse* backup = nullptr;
  * 
  * @param configFilePath - the path to the configuration file given by the user
  */
-WareHouse::WareHouse(const string &configFilePath): isOpen(false), customerCounter(0), volunteerCounter(0), orderCounter(0), parser(), demiCust(new CivilianCustomer(DOES_NOT_EXIST, "", DOES_NOT_EXIST, DOES_NOT_EXIST)), demiVol(new CollectorVolunteer(DOES_NOT_EXIST, "", DOES_NOT_EXIST)), demiOrder(new Order(DOES_NOT_EXIST, DOES_NOT_EXIST, DOES_NOT_EXIST)){
+WareHouse::WareHouse(const string &configFilePath): isOpen(false), actionsLog(), volunteers(), pendingOrders(), inProcessOrders(),
+completedOrders(), customers(), customerCounter(0), volunteerCounter(0),  parser(), orderCounter(0),
+demiCust(new CivilianCustomer(DOES_NOT_EXIST, "", DOES_NOT_EXIST, DOES_NOT_EXIST)), demiVol(new CollectorVolunteer(DOES_NOT_EXIST, "", DOES_NOT_EXIST)), demiOrder(new Order(DOES_NOT_EXIST, DOES_NOT_EXIST, DOES_NOT_EXIST)){
     proccessConfigFile(configFilePath);
 }
 
@@ -18,7 +20,7 @@ void WareHouse::start(){
         getline(cin, currInput);
         vector<string> splitedInput = parser.ParseLine(currInput);
         BaseAction* currAction;
-        if(splitedInput[0].compare(STEP) == 0){
+        if(splitedInput[0].compare(STEP) == 0 && splitedInput.size() == 2){
             currAction = new SimulateStep(stoi(splitedInput[1]));
         }
         else if(splitedInput[0].compare(ADDORDER) == 0 && splitedInput.size() == 2){
@@ -27,13 +29,13 @@ void WareHouse::start(){
         else if(splitedInput[0].compare(CUSTOMER) == 0){
             currAction = new AddCustomer(splitedInput[1], splitedInput[2], stoi(splitedInput[3]), stoi(splitedInput[4]));
         }
-        else if(splitedInput[0].compare(ORDER_STATUS) == 0){
+        else if(splitedInput[0].compare(ORDER_STATUS) == 0 && splitedInput.size() == 2){
             currAction = new PrintOrderStatus(stoi(splitedInput[1]));
         }
-        else if(splitedInput[0].compare(CUSTOMER_STATUS) == 0){
+        else if(splitedInput[0].compare(CUSTOMER_STATUS) == 0 && splitedInput.size() == 2){
             currAction = new PrintCustomerStatus(stoi(splitedInput[1]));
         }
-        else if(splitedInput[0].compare(VOLUNTEER_STATUS) == 0){
+        else if(splitedInput[0].compare(VOLUNTEER_STATUS) == 0 && splitedInput.size() == 2){
             currAction = new PrintVolunteerStatus(stoi(splitedInput[1]));
         }
         else if(splitedInput[0].compare(LOG) == 0){
@@ -51,8 +53,8 @@ void WareHouse::start(){
         else {
             continue;
         }
-        actionsLog.push_back(currAction);
         currAction->act(*this);
+        actionsLog.push_back(currAction);
     }
 }
 
@@ -84,12 +86,20 @@ void WareHouse::addAction(BaseAction* action){
  * @return - a reference to the customer if found, else returns a demi customer (needs to be deleted by caller)
  */
 Customer &WareHouse::getCustomer(int customerId) const{
+    Customer* custToReturn = nullptr;
     if(customerId < 0 || customerId > customerCounter){
-        return *demiCust;
+        custToReturn = demiCust;
     }
-    for (auto & customer : customers) {
-        if(customer->getId() == customerId) return *customer;
-    }
+    else{
+        bool found = false;
+        for (long unsigned int i = 0; i < customers.size() && !found; i++) {
+            if(customers[i]->getId() == customerId){
+                found = true;
+                custToReturn = customers[i];
+            }
+        }
+    } 
+    return *custToReturn;
 }
 
 /**
@@ -134,6 +144,7 @@ const vector<BaseAction*> &WareHouse::getActions() const{
  */
 void WareHouse::close(){
     isOpen = false;
+    delete backup;
 }
 
 /**
@@ -162,8 +173,10 @@ int WareHouse::getCustomersNumber() const{
  * 
  * @param otherWareHouse - a reference to a warehouse object
  */
-WareHouse::WareHouse(const WareHouse& otherWareHouse): isOpen(otherWareHouse.isOpen), customerCounter(otherWareHouse.customerCounter),
-volunteerCounter(otherWareHouse.volunteerCounter), parser(otherWareHouse.parser), orderCounter(otherWareHouse.orderCounter), demiCust(new CivilianCustomer(DOES_NOT_EXIST, "", DOES_NOT_EXIST, DOES_NOT_EXIST)), demiVol(new CollectorVolunteer(DOES_NOT_EXIST, "", DOES_NOT_EXIST)), demiOrder(new Order(DOES_NOT_EXIST, DOES_NOT_EXIST, DOES_NOT_EXIST)){
+WareHouse::WareHouse(const WareHouse& otherWareHouse): isOpen(otherWareHouse.isOpen), actionsLog(), volunteers(), pendingOrders(), inProcessOrders(),
+completedOrders(), customers(),  customerCounter(otherWareHouse.customerCounter),
+volunteerCounter(otherWareHouse.volunteerCounter), parser(otherWareHouse.parser), orderCounter(otherWareHouse.orderCounter),
+demiCust(new CivilianCustomer(DOES_NOT_EXIST, "", DOES_NOT_EXIST, DOES_NOT_EXIST)), demiVol(new CollectorVolunteer(DOES_NOT_EXIST, "", DOES_NOT_EXIST)), demiOrder(new Order(DOES_NOT_EXIST, DOES_NOT_EXIST, DOES_NOT_EXIST)){
     for(auto& action: otherWareHouse.actionsLog){
         actionsLog.push_back(action->clone());
     }
@@ -189,10 +202,10 @@ volunteerCounter(otherWareHouse.volunteerCounter), parser(otherWareHouse.parser)
  * 
  * @param otherWareHouse - a rvalue of type WareHosue
  */
-WareHouse::WareHouse(WareHouse&& otherWareHouse): isOpen(otherWareHouse.isOpen), customerCounter(otherWareHouse.customerCounter),
+WareHouse::WareHouse(WareHouse&& otherWareHouse): isOpen(otherWareHouse.isOpen), actionsLog(otherWareHouse.actionsLog), volunteers(otherWareHouse.volunteers), pendingOrders(otherWareHouse.pendingOrders), 
+inProcessOrders(otherWareHouse.inProcessOrders), completedOrders(otherWareHouse.completedOrders),
+customers(otherWareHouse.customers), customerCounter(otherWareHouse.customerCounter),
 volunteerCounter(otherWareHouse.volunteerCounter), parser(otherWareHouse.parser), orderCounter(otherWareHouse.orderCounter),
-pendingOrders(otherWareHouse.pendingOrders), inProcessOrders(otherWareHouse.inProcessOrders), completedOrders(otherWareHouse.completedOrders),
-customers(otherWareHouse.customers), volunteers(otherWareHouse.volunteers), actionsLog(otherWareHouse.actionsLog),
 demiCust(otherWareHouse.demiCust), demiVol(otherWareHouse.demiVol), demiOrder(otherWareHouse.demiOrder){
     for (auto & order : otherWareHouse.pendingOrders) {
          order = nullptr;
@@ -375,7 +388,7 @@ void WareHouse::addVolunteer(Volunteer* Volunteer){
  */
 void WareHouse::proccessConfigFile(const string &configFilePath){
     vector<string> lines =  parser.ParseFile(configFilePath);
-    for(int i = 0; i < lines.size(); i++){
+    for(long unsigned int i = 0; i < lines.size(); i++){
         vector<string> currLine = parser.ParseLine(lines[i]);
         if(currLine[0].compare(CUSTOMER) == 0){
             if(currLine[2].compare(SOLDIER) == 0){
