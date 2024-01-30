@@ -1,6 +1,6 @@
 #include "../include/WareHouse.h"
 #include <iostream>
-
+WareHouse* backup = nullptr;
 using namespace std;
 
 int main(int argc, char** argv){

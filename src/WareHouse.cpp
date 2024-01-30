@@ -1,6 +1,5 @@
 #include "../include/WareHouse.h"
 #include "Action.h"
-WareHouse* backup = nullptr;
 /**
  * @brief Construct a new Ware House:: Ware House object
  * 
@@ -144,7 +143,6 @@ const vector<BaseAction*> &WareHouse::getActions() const{
  */
 void WareHouse::close(){
     isOpen = false;
-    delete backup;
 }
 
 /**

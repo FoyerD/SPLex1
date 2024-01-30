@@ -1,6 +1,9 @@
+#comment
 customer Moshe soldier 3 2
 customer Ron civilian 2 1
 
+
+#comment
 volunteer Tamar collector 2
 volunteer Ron limited_collector 3 2
 volunteer Tal driver 7 4
