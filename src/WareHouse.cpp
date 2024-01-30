@@ -1,6 +1,5 @@
 #include "../include/WareHouse.h"
 #include "Action.h"
-WareHouse* backup = nullptr;
 /**
  * @brief Construct a new Ware House:: Ware House object
  * 

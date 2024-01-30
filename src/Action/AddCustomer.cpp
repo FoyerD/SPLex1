@@ -21,16 +21,17 @@ string AddCustomer::toString() const{
 
 void AddCustomer::act(WareHouse& wareHouse){
     int id = wareHouse.getCustomersNumber();
+    Customer* custToAdd = nullptr;
     switch (customerType)
     {
     case CustomerType::Civilian:
-        Customer* custToAdd = new CivilianCustomer(id, customerName, distance, maxOrders)
+        custToAdd = new CivilianCustomer(id, customerName, distance, maxOrders);
         break;
     case CustomerType::Soldier:
-        Customer custToAdd = new SoldierCustomer(id, customerName, distance, maxOrders);
+        custToAdd = new SoldierCustomer(id, customerName, distance, maxOrders);
         break;
     default:
-        Customer custToAdd = new CivilianCustomer(id, customerName, distance, maxOrders);
+        custToAdd = new CivilianCustomer(id, customerName, distance, maxOrders);
         break;
     }
     wareHouse.addCustomer(custToAdd);
