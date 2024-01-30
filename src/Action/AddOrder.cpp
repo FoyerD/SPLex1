@@ -18,7 +18,6 @@ void AddOrder::act(WareHouse& wareHouse){
     }
     currCustomer.addOrder(wareHouse.getOrdersNumber());
     wareHouse.addOrder(new Order(wareHouse.getOrdersNumber(), customerId, currCustomer.getCustomerDistance()));
-    complete();
 }
 
 AddOrder *AddOrder::clone() const{

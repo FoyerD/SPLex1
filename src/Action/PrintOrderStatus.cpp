@@ -23,5 +23,4 @@ void PrintOrderStatus::act(WareHouse& wareHouse){
         return;
     }
     std::cout << toPrint.toString();
-    complete();
 }

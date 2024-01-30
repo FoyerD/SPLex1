@@ -18,5 +18,4 @@ void PrintActionsLog::act(WareHouse& wareHouse){
         toPrint += currAction->toString() + "\n";
     }
     std::cout << toPrint << std::endl;
-    complete();
 }

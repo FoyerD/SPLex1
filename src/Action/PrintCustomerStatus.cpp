@@ -29,5 +29,4 @@ void PrintCustomerStatus::act(WareHouse& wareHouse){
     }
     strToPrint += "numOrdersLeft: " + std::to_string(customerToPrint->getMaxOrders() - customerToPrint->getNumOrders());
     std::cout << strToPrint << std::endl;
-    complete();
 }

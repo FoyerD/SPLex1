@@ -23,5 +23,4 @@ void Close::act(WareHouse& wareHouse){
         std::cout << currOrder->printAfterClose() << std::endl;
     }
     wareHouse.close();
-    complete();
 }

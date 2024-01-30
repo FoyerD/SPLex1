@@ -18,5 +18,4 @@ void RestoreWareHouse::act(WareHouse& wareHouse){
         return;
     }
     wareHouse = *backup;
-    complete();
 }

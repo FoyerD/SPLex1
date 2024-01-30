@@ -24,15 +24,16 @@ void AddCustomer::act(WareHouse& wareHouse){
     switch (customerType)
     {
     case CustomerType::Civilian:
-        wareHouse.addCustomer(new CivilianCustomer(id, customerName, distance, maxOrders));
+        Customer* custToAdd = new CivilianCustomer(id, customerName, distance, maxOrders)
         break;
     case CustomerType::Soldier:
-        wareHouse.addCustomer(new SoldierCustomer(id, customerName, distance, maxOrders));
+        Customer custToAdd = new SoldierCustomer(id, customerName, distance, maxOrders);
         break;
     default:
+        Customer custToAdd = new CivilianCustomer(id, customerName, distance, maxOrders);
         break;
     }
-    complete();
+    wareHouse.addCustomer(custToAdd);
 }
 
 
