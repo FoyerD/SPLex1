@@ -52,8 +52,8 @@ void WareHouse::start(){
         else {
             continue;
         }
-        currAction->act(*this);
         actionsLog.push_back(currAction);
+        currAction->act(*this);
     }
 }
 
@@ -143,7 +143,6 @@ const vector<BaseAction*> &WareHouse::getActions() const{
  */
 void WareHouse::close(){
     isOpen = false;
-    delete backup;
 }
 
 /**
