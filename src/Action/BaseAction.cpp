@@ -5,8 +5,8 @@
  * sets status to ACTIVE
 */
 BaseAction::BaseAction():
-                        errorMsg("INTERRUPTED"),
-                        status(ActionStatus::ERROR){}
+                        errorMsg(""),
+                        status(ActionStatus::COMPLETED){}
 BaseAction::~BaseAction(){};
 
 /**
