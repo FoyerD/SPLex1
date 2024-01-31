@@ -19,22 +19,22 @@ void WareHouse::start(){
         getline(cin, currInput);
         vector<string> splitedInput = parser.ParseLine(currInput);
         BaseAction* currAction;
-        if(splitedInput[0].compare(STEP) == 0 && splitedInput.size() == 2 && isdigit(splitedInput[1][0])){
+        if(splitedInput[0].compare(STEP) == 0 && inputCheck(splitedInput)){
             currAction = new SimulateStep(stoi(splitedInput[1]));
         }
-        else if(splitedInput[0].compare(ADDORDER) == 0 && splitedInput.size() == 2 && isdigit(splitedInput[1][0])){
+        else if(splitedInput[0].compare(ADDORDER) == 0 && inputCheck(splitedInput)){
             currAction = new AddOrder(stoi(splitedInput[1]));
         }
-        else if(splitedInput[0].compare(CUSTOMER) == 0){
+        else if(splitedInput[0].compare(CUSTOMER) == 0 && inputCheck(splitedInput)){
             currAction = new AddCustomer(splitedInput[1], splitedInput[2], stoi(splitedInput[3]), stoi(splitedInput[4]));
         }
-        else if(splitedInput[0].compare(ORDER_STATUS) == 0 && splitedInput.size() == 2 && isdigit(splitedInput[1][0])){
+        else if(splitedInput[0].compare(ORDER_STATUS) == 0 && inputCheck(splitedInput)){
             currAction = new PrintOrderStatus(stoi(splitedInput[1]));
         }
-        else if(splitedInput[0].compare(CUSTOMER_STATUS) == 0 && splitedInput.size() == 2 && isdigit(splitedInput[1][0])){
+        else if(splitedInput[0].compare(CUSTOMER_STATUS) == 0 && inputCheck(splitedInput)){
             currAction = new PrintCustomerStatus(stoi(splitedInput[1]));
         }
-        else if(splitedInput[0].compare(VOLUNTEER_STATUS) == 0 && splitedInput.size() == 2 && isdigit(splitedInput[1][0])){
+        else if(splitedInput[0].compare(VOLUNTEER_STATUS) == 0 && inputCheck(splitedInput)){
             currAction = new PrintVolunteerStatus(stoi(splitedInput[1]));
         }
         else if(splitedInput[0].compare(LOG) == 0){
@@ -493,4 +493,13 @@ const vector<Volunteer*>& WareHouse::getVolunteers() const{
 void WareHouse::removeVolunteer(Volunteer* volToDel){
     volunteers.erase(find(volunteers.begin(), volunteers.end(), volToDel));
     delete volToDel;
+}
+
+bool WareHouse::inputCheck(const vector<string>& input){
+    if(input[0].compare(STEP) == 0 || input[0].compare(ADDORDER) == 0 || input[0].compare(ORDER_STATUS) == 0 || input[0].compare(CUSTOMER_STATUS) == 0 || input[0].compare(VOLUNTEER_STATUS) == 0){
+        return input.size() == 2 && isdigit(input[1][0]);
+    }
+    else if(input[0].compare(CUSTOMER) == 0){
+        return (input.size() == 5 && isdigit(input[3][0]) && isdigit(input[4][0]) && (input[2].compare(SOLDIER) == 0 || input[2].compare(CIVILIAN) == 0));
+    }
 }

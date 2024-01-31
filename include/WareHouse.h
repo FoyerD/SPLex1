@@ -75,6 +75,7 @@ class WareHouse {
         int volunteerCounter; //For assigning unique volunteer IDs
         Parser parser;
         void proccessConfigFile(const string &configFilePath);
+        bool inputCheck(const vector<string>& input);
         int orderCounter;
         void clear();
         Customer* demiCust;
