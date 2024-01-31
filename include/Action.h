@@ -29,7 +29,6 @@ class BaseAction{
         virtual BaseAction* clone() const=0;
 
     protected:
-        void complete();
         void error(string errorMsg);
         string getErrorMsg() const;
 

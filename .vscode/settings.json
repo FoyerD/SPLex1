@@ -50,7 +50,14 @@
         {
             "cwd": "/workspaces/SPLex1/bin",
             "binaryPath": "/workspaces/SPLex1/bin/warehouse",
-            "binaryArgs": ["/workspaces/SPLex1/configFileExample.txt"]
+            "binaryArgs": [
+                "/workspaces/SPLex1/configFileExample.txt"
+            ]
+        },
+        {
+            "cwd": "/home/users/bsc/amitfoye/SPLex1/bin",
+            "binaryPath": "/home/users/bsc/amitfoye/SPLex1/bin/warehouse",
+            "binaryArgs": []
         }
     ]
 }

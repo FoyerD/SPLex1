@@ -15,8 +15,8 @@ string PrintActionsLog::toString() const{
 void PrintActionsLog::act(WareHouse& wareHouse){
     string toPrint("");
     for(BaseAction* currAction : wareHouse.getActions()){
+        if(currAction == this) continue;//dont print this action
         toPrint += currAction->toString() + "\n";
     }
     std::cout << toPrint << std::endl;
-    complete();
 }

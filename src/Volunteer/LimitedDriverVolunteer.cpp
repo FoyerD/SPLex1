@@ -23,7 +23,7 @@ int LimitedDriverVolunteer::getNumOrdersLeft() const{return ordersLeft;}
 
 
 bool LimitedDriverVolunteer::hasOrdersLeft() const{
-    return ordersLeft != 0;
+    return ordersLeft > 0;
 }
 
 bool LimitedDriverVolunteer::canTakeOrder(const Order& order) const{

@@ -5,17 +5,10 @@
  * sets status to ACTIVE
 */
 BaseAction::BaseAction():
-                        errorMsg("INTERRUPTED"),
-                        status(ActionStatus::ERROR){}
+                        errorMsg(""),
+                        status(ActionStatus::COMPLETED){}
 BaseAction::~BaseAction(){};
 
-/**
- * sets status to COMPLETE
-*/
-void BaseAction::complete(){
-    status = ActionStatus::COMPLETED;
-    errorMsg = "";    
-}
 
 /**
  * sets status to ERROR

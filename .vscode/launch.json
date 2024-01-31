@@ -5,7 +5,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/bin/warehouse",
-            "args": ["/home/spl211/splProj/SPLex1/configFileExample.txt"],
+            "args": ["configFileExample.txt"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

@@ -26,7 +26,6 @@ void SimulateStep::act(WareHouse& wareHouse){
     for(int i = 0; i < numOfSteps;i++){
         singleStep(wareHouse);
     }
-    this->complete();
 }
 
 
