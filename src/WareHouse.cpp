@@ -86,7 +86,7 @@ void WareHouse::addAction(BaseAction* action){
  */
 Customer &WareHouse::getCustomer(int customerId) const{
     Customer* custToReturn = nullptr;
-    if(customerId < 0 || customerId > customerCounter){
+    if(customerId < 0 || customerId >= customerCounter){
         custToReturn = demiCust;
     }
     else{

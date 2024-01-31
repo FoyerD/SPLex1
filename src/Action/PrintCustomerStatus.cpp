@@ -17,16 +17,16 @@ string PrintCustomerStatus::toString() const{
 
 
 void PrintCustomerStatus::act(WareHouse& wareHouse){
-    Customer* customerToPrint = &wareHouse.getCustomer(customerId);
-    if(customerToPrint->getId() == -1){
+    Customer& customerToPrint = wareHouse.getCustomer(customerId);
+    if(customerToPrint.getId() == -1){
         error("Customer doesn't exist");
         return;
     }
 
     string strToPrint("CustmerID " + std::to_string(customerId) + "\n");
-    for(int currID : customerToPrint->getOrdersIds()){
+    for(int currID : customerToPrint.getOrdersIds()){
         strToPrint += wareHouse.getOrder(currID).printStatus() + "\n";
     }
-    strToPrint += "numOrdersLeft: " + std::to_string(customerToPrint->getMaxOrders() - customerToPrint->getNumOrders());
+    strToPrint += "numOrdersLeft: " + std::to_string(customerToPrint.getMaxOrders() - customerToPrint.getNumOrders());
     std::cout << strToPrint << std::endl;
 }
