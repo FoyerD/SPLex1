@@ -14,7 +14,9 @@ SimulateStep* SimulateStep::clone() const{
 }
 
 string SimulateStep::toString() const{
-    return "simulateStep " + std::to_string(numOfSteps);
+    return "simulateStep " +
+            std::to_string(numOfSteps) + " " +
+            statusToString[(int)BaseAction::getStatus()];
 }
 
 
