@@ -1,4 +1,4 @@
-all: clean bin/warehouse valgrind
+all: clean bin/warehouse
 
 bin/warehouse: bin/main.o bin/Customer.o bin/Order.o bin/CollectorVolunteer.o bin/DriverVolunteer.o \
 	bin/LimitedCollectorVolunteer.o bin/LimitedDriverVolunteer.o bin/Volunteer.o bin/Parser.o \
@@ -71,9 +71,4 @@ bin/RestoreWareHouse.o: src/Action/RestoreWareHouse.cpp
 
 clean:
 	rm -f bin/*
-
-valgrind:
-	valgrind --leak-check=full --show-reachable=yes bin/warehouse configFileExample.txt
-
-
 
