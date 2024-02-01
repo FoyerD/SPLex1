@@ -19,22 +19,22 @@ void WareHouse::start(){
         getline(cin, currInput);
         vector<string> splitedInput = parser.ParseLine(currInput);
         BaseAction* currAction;
-        if(splitedInput[0].compare(STEP) == 0 && splitedInput.size() == 2){
+        if(splitedInput[0].compare(STEP) == 0 && splitedInput.size() == 2 && isdigit(splitedInput[1][0])){
             currAction = new SimulateStep(stoi(splitedInput[1]));
         }
-        else if(splitedInput[0].compare(ADDORDER) == 0 && splitedInput.size() == 2){
+        else if(splitedInput[0].compare(ADDORDER) == 0 && splitedInput.size() == 2 && isdigit(splitedInput[1][0])){
             currAction = new AddOrder(stoi(splitedInput[1]));
         }
         else if(splitedInput[0].compare(CUSTOMER) == 0){
             currAction = new AddCustomer(splitedInput[1], splitedInput[2], stoi(splitedInput[3]), stoi(splitedInput[4]));
         }
-        else if(splitedInput[0].compare(ORDER_STATUS) == 0 && splitedInput.size() == 2){
+        else if(splitedInput[0].compare(ORDER_STATUS) == 0 && splitedInput.size() == 2 && isdigit(splitedInput[1][0])){
             currAction = new PrintOrderStatus(stoi(splitedInput[1]));
         }
-        else if(splitedInput[0].compare(CUSTOMER_STATUS) == 0 && splitedInput.size() == 2){
+        else if(splitedInput[0].compare(CUSTOMER_STATUS) == 0 && splitedInput.size() == 2 && isdigit(splitedInput[1][0])){
             currAction = new PrintCustomerStatus(stoi(splitedInput[1]));
         }
-        else if(splitedInput[0].compare(VOLUNTEER_STATUS) == 0 && splitedInput.size() == 2){
+        else if(splitedInput[0].compare(VOLUNTEER_STATUS) == 0 && splitedInput.size() == 2 && isdigit(splitedInput[1][0])){
             currAction = new PrintVolunteerStatus(stoi(splitedInput[1]));
         }
         else if(splitedInput[0].compare(LOG) == 0){
@@ -96,6 +96,9 @@ Customer &WareHouse::getCustomer(int customerId) const{
                 found = true;
                 custToReturn = customers[i];
             }
+        }
+        if(!found){
+            custToReturn = demiCust;
         }
     } 
     return *custToReturn;
