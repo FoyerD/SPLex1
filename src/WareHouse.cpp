@@ -502,4 +502,5 @@ bool WareHouse::inputCheck(const vector<string>& input){
     else if(input[0].compare(CUSTOMER) == 0){
         return (input.size() == 5 && isdigit(input[3][0]) && isdigit(input[4][0]) && (input[2].compare(SOLDIER) == 0 || input[2].compare(CIVILIAN) == 0));
     }
+    else return false;
 }
