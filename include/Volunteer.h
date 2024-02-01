@@ -1,4 +1,4 @@
- #pragma once
+#pragma once
 #include <string>
 #include <vector>
 #include "Order.h"
@@ -15,14 +15,15 @@ class Volunteer {
         int getActiveOrderId() const;
         int getCompletedOrderId() const;
         bool isBusy() const; // Signal whether the volunteer is currently processing an order    
+        virtual int completeOrder();
         virtual bool hasOrdersLeft() const = 0; // Signal whether the volunteer didn't reach orders limit,Always true for CollectorVolunteer and DriverVolunteer
         virtual bool canTakeOrder(const Order &order) const = 0; // Signal if the volunteer can take the order.      
         virtual void acceptOrder(const Order &order) = 0; // Prepare for new order(Reset activeOrderId,TimeLeft,DistanceLeft,OrdersLeft depends on the volunteer type)
-                
         virtual void step() = 0; //Simulate volunteer step,if the volunteer finished the order, transfer activeOrderId to completedOrderId
 
         virtual string toString() const = 0;
         virtual Volunteer* clone() const = 0; //Return a copy of the volunteer
+        virtual ~Volunteer();
 
     protected:
         int completedOrderId; //Initialized to NO_ORDER if no order has been completed yet
@@ -40,6 +41,7 @@ class CollectorVolunteer: public Volunteer {
     public:
         CollectorVolunteer(int id, string name, int coolDown);
         CollectorVolunteer *clone() const override;
+        virtual ~CollectorVolunteer();
         void step() override;
         int getCoolDown() const;
         int getTimeLeft() const;
@@ -59,9 +61,11 @@ class LimitedCollectorVolunteer: public CollectorVolunteer {
     public:
         LimitedCollectorVolunteer(int id, string name, int coolDown ,int maxOrders);
         LimitedCollectorVolunteer *clone() const override;
+        virtual ~LimitedCollectorVolunteer();
         bool hasOrdersLeft() const override;
         bool canTakeOrder(const Order &order) const override;
         void acceptOrder(const Order &order) override;
+        int completeOrder();
 
         int getMaxOrders() const;
         int getNumOrdersLeft() const;
@@ -77,14 +81,14 @@ class DriverVolunteer: public Volunteer {
     public:
         DriverVolunteer(int id, string name, int maxDistance, int distancePerStep);
         DriverVolunteer *clone() const override;
-
+        virtual ~DriverVolunteer();
         int getDistanceLeft() const;
         int getMaxDistance() const;
         int getDistancePerStep() const;  
         bool decreaseDistanceLeft(); //Decrease distanceLeft by distancePerStep,return true if distanceLeft<=0,false otherwise
         bool hasOrdersLeft() const override;
         bool canTakeOrder(const Order &order) const override; // Signal if the volunteer is not busy and the order is within the maxDistance
-        void acceptOrder(const Order &order) override; // Reset distanceLeft to maxDistance
+        void acceptOrder(const Order &order) override; // Assign distanceLeft to order's distance
         void step() override; // Decrease distanceLeft by distancePerStep
         string toString() const override;
 
@@ -99,11 +103,13 @@ class LimitedDriverVolunteer: public DriverVolunteer {
     public:
         LimitedDriverVolunteer(int id, const string &name, int maxDistance, int distancePerStep,int maxOrders);
         LimitedDriverVolunteer *clone() const override;
+        virtual ~LimitedDriverVolunteer();
         int getMaxOrders() const;
         int getNumOrdersLeft() const;
         bool hasOrdersLeft() const override;
-        bool canTakeOrder(const Order &order) const override; // Signal if the volunteer is not busy, the order is within the maxDistance and have orders left
-        void acceptOrder(const Order &order) override; // Reset distanceLeft to maxDistance and decrease ordersLeft
+        bool canTakeOrder(const Order &order) const override; // Signal if the volunteer is not busy, the order is within the maxDistance.
+        void acceptOrder(const Order &order) override; // Assign distanceLeft to order's distance and decrease ordersLeft
+        int completeOrder();
         string toString() const override;
 
     private:
